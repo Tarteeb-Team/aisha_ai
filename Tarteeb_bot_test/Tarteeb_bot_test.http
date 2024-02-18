@@ -1,0 +1,6 @@
+@Tarteeb_bot_test_HostAddress = http://localhost:5198
+
+GET {{Tarteeb_bot_test_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
