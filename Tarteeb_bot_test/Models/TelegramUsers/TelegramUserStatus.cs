@@ -4,6 +4,7 @@
     {
         Active,
         Register,
-        Menu
+        Menu,
+        TestSpeech
     }
 }
