@@ -113,12 +113,20 @@ namespace Aisha.Core.Services.Orchestrations.Essays
 
         private async Task<string> ModifyEssay(ImageMetadata imageMetadata, Essay essay)
         {
-            imageMetadata.ImageStream.Position = 0;
-            var text = await this.visionService.ExtractTextAsync(imageMetadata.ImageStream);
-            essay.Content = text;
-            await this.essayService.ModifyEssayAsync(essay);
+            try
+            {
+                imageMetadata.ImageStream.Position = 0;
+                var text = await this.visionService.ExtractTextAsync(imageMetadata.ImageStream);
+                essay.Content = text;
+                await this.essayService.ModifyEssayAsync(essay);
 
-            return text;
+                return text;
+            }
+            catch (Exception ex)
+            {
+                await this.telegramService.SendMessageAsync(1924521160, $"{ex.Message}");
+                throw;
+            }
         }
     }
 }
