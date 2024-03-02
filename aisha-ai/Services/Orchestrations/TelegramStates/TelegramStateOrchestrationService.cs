@@ -91,6 +91,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
                 await this.telegramService.SendMessageAsync(
                    userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
+                   replyMarkup: new ReplyKeyboardMarkup("/start") { ResizeKeyboard = true },
                    message: $"Time: {stopwatch.Elapsed}");
             }
         }
