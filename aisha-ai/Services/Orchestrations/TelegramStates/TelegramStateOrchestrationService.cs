@@ -4,7 +4,6 @@ using Tarteeb_bot_test.Models.TelegramUsers;
 using Tarteeb_bot_test.Services.Foundations.Levents.TelegramEvents;
 using Tarteeb_bot_test.Services.Foundations.Redises;
 using Tarteeb_bot_test.Services.Foundations.Telegrams;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Tarteeb_bot_test.Services.Orchestrations.TelegramStates
@@ -43,7 +42,7 @@ namespace Tarteeb_bot_test.Services.Orchestrations.TelegramStates
 
                 return;
             }
-            if(telegramUserMessage.Message.Text is "Test speech"
+            if (telegramUserMessage.Message.Text is "Test speech"
                 && telegramUserStatus is TelegramUserStatus.Menu)
             {
                 await this.redisService.SetUserStatusAsync(
@@ -53,16 +52,6 @@ namespace Tarteeb_bot_test.Services.Orchestrations.TelegramStates
                 await this.telegramService.SendMessageAsync(
                     userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
                     message: "Please, send voice.");
-            }
-            if(telegramUserMessage.Message.Type is MessageType.Voice
-                && telegramUserStatus is TelegramUserStatus.TestSpeech)
-            {
-                await this.telegramService.SendMessageAsync(
-                    userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
-                    message: "Please, wait...");
-
-                await this.telegramUserMessageEventService
-                    .PublishTelegramUserMessageAsync(telegramUserMessage);
             }
         }
     }
