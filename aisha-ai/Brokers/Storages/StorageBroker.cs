@@ -54,7 +54,7 @@ namespace aisha_ai.Brokers.Storages
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connectionString = "Data source = virtual_bazaar.db";
+            string connectionString = "Data source = aisha.db";
             optionsBuilder.UseSqlite(connectionString);
         }
     }

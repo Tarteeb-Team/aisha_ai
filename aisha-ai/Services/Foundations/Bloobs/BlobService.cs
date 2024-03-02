@@ -13,7 +13,13 @@ namespace aisha_ai.Services.Foundations.Bloobs
             this.blobBroker = blobBroker;
         }
 
-        public async Task UploadSpeechAsync(MemoryStream memoryStream, string fileName) =>
-            await this.blobBroker.UploadSpeechAsync(memoryStream, fileName);
+        public async Task UploadSpeechAsync(Stream stream, string fileName) =>
+            await this.blobBroker.UploadSpeechAsync(stream, fileName);
+
+        public async Task RemoveSpeechAsync(string fileName) =>
+            await this.blobBroker.DeleteBlobAsync(fileName);
+
+        public async Task<bool> CheckIfBlobExistsAsync(string fileName) =>
+            await this.blobBroker.CheckIfBlobExistsAsync(fileName);
     }
 }

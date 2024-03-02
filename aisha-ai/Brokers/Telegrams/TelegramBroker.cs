@@ -79,6 +79,17 @@ namespace aisha_ai.Brokers.Telegrams
                 replyMarkup: replyMarkup);
         }
 
+        public async ValueTask SendAudioAsync(
+            long userTelegramId,
+            string message,
+            Telegram.Bot.Types.InputFile voice)
+        {
+            await this.telegramBotClient.SendVoiceAsync(
+                chatId: userTelegramId,
+                caption: message,
+                voice: voice);
+        }
+
         public async ValueTask<Telegram.Bot.Types.File> GetFileAsync(string fileId, CancellationToken cancellationToken = default) =>
             await this.telegramBotClient.GetFileAsync(fileId, cancellationToken);
 

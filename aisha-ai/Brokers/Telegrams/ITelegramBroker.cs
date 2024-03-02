@@ -16,6 +16,11 @@ namespace aisha_ai.Brokers.Telegrams
            ParseMode? parseMode = null,
            IReplyMarkup? replyMarkup = null);
 
+        ValueTask SendAudioAsync(
+            long userTelegramId,
+            string message,
+            Telegram.Bot.Types.InputFile voice);
+
         ValueTask DeleteWebhookAsync(CancellationToken cancellationToken);
         void RegisterTelegramEventHandler(Func<Update, ValueTask> eventHandler);
         ValueTask<Telegram.Bot.Types.File> GetFileAsync(string fileId, CancellationToken cancellationToken = default(CancellationToken));

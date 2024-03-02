@@ -5,6 +5,8 @@ namespace aisha_ai.Services.Foundations.Bloobs
 {
     public interface IBlobService
     {
-        Task UploadSpeechAsync(MemoryStream memoryStream, string fileName);
+        Task UploadSpeechAsync(Stream stream, string fileName);
+        Task RemoveSpeechAsync(string fileName);
+        Task<bool> CheckIfBlobExistsAsync(string fileName);
     }
 }

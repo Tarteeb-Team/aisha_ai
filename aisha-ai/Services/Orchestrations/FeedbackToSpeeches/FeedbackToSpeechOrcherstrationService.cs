@@ -1,0 +1,73 @@
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using aisha_ai.Models.Feedbacks;
+using aisha_ai.Models.SpeechInfos;
+using aisha_ai.Services.Foundations.Bloobs;
+using aisha_ai.Services.Foundations.FeedbackEvents;
+using aisha_ai.Services.Foundations.Speeches;
+using aisha_ai.Services.Foundations.SpeechInfos;
+
+namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
+{
+    public class FeedbackToSpeechOrcherstrationService : IFeedbackToSpeechOrcherstrationService
+    {
+        private readonly ISpeechService speechService;
+        private readonly IBlobService blobService;
+        private readonly ISpeechInfoService speechInfoService;
+        private readonly IFeedbackEventService feedbackEventService;
+
+        public FeedbackToSpeechOrcherstrationService(
+            ISpeechService speechService,
+            IBlobService blobService,
+            ISpeechInfoService speechInfoService,
+            IFeedbackEventService feedbackEventService)
+        {
+            this.speechService = speechService;
+            this.blobService = blobService;
+            this.speechInfoService = speechInfoService;
+            this.feedbackEventService = feedbackEventService;
+        }
+
+        public void ListenToFeedback() =>
+            this.feedbackEventService.ListenToFeedback(ProcessSpeechAsync);
+
+        private async ValueTask ProcessSpeechAsync(Feedback feedback)
+        {
+            var fileName = $"{feedback.TelegramUserName}.wav";
+
+            string filePath = await this.speechService
+                .SaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
+
+            using FileStream fileStream = await EnsureBlobAsync(fileName, filePath);
+            await PopulateAndAddSpeechInfoAsync(feedback, fileName);
+        }
+
+        private async Task<FileStream> EnsureBlobAsync(string fileName, string filePath)
+        {
+            var fileStream = File.OpenRead(filePath);
+            bool exists = await this.blobService.CheckIfBlobExistsAsync(fileName);
+
+            if (exists)
+            {
+                await this.blobService.RemoveSpeechAsync(fileName);
+            }
+
+            await this.blobService.UploadSpeechAsync(fileStream, fileName);
+
+            return fileStream;
+        }
+
+        private async Task PopulateAndAddSpeechInfoAsync(Feedback feedback, string fileName)
+        {
+            var speechInfo = new SpeechInfo
+            {
+                Id = Guid.NewGuid(),
+                BlobName = fileName,
+                TelegramUserName = feedback.TelegramUserName
+            };
+
+            await this.speechInfoService.AddSpeechInfoAsync(speechInfo);
+        }
+    }
+}

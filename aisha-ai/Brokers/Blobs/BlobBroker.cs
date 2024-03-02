@@ -14,8 +14,7 @@ namespace aisha_ai.Brokers.Blobs
 
         public BlobContainerClient CreateBlobServiceClient(string containerName)
         {
-            string connectionString =
-                this.configuration.GetConnectionString(name: "BlobConnection");
+            string connectionString = this.configuration.GetValue<string>(key: "BlobConnection");
 
             return new BlobContainerClient(connectionString, containerName);
         }

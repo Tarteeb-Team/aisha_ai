@@ -17,6 +17,11 @@ namespace aisha_ai.Services.Foundations.Telegrams
            ParseMode? parseMode = null,
            IReplyMarkup? replyMarkup = null);
 
+        ValueTask SendAudioAsync(
+            long userTelegramId,
+            string message,
+            Telegram.Bot.Types.InputFile audio);
+
         ValueTask<Telegram.Bot.Types.File> GetFileAsync(string fileId, CancellationToken cancellationToken = default(CancellationToken));
         ValueTask DownloadFileAsync(string filePath, Stream stream, CancellationToken cancellationToken = default(CancellationToken));
     }

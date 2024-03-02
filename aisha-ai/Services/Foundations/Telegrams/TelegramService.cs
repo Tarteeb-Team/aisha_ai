@@ -34,6 +34,7 @@ namespace aisha_ai.Services.Foundations.Telegrams
                 {
                     Id = Guid.NewGuid(),
                     TelegramId = update.Message.From.Id,
+                    TelegramUserName = update.Message.From.Username,
                     Name = update.Message.From.FirstName
                 };
 
@@ -61,6 +62,17 @@ namespace aisha_ai.Services.Foundations.Telegrams
                     parseMode: parseMode,
                     replyMarkup: replyMarkup);
 
+        }
+
+        public async ValueTask SendAudioAsync(
+            long userTelegramId,
+            string message,
+            Telegram.Bot.Types.InputFile audio)
+        {
+            await this.telegramBroker.SendAudioAsync(
+                 userTelegramId,
+                 message,
+                 audio);
         }
 
         public async ValueTask<Telegram.Bot.Types.File> GetFileAsync(string fileId, CancellationToken cancellationToken = default) =>
