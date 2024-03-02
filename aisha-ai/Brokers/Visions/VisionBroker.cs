@@ -18,13 +18,13 @@ namespace aisha_ai.Brokers.Visions
 
         public VisionBroker(IConfiguration configuration)
         {
-            var visionConfiguration = new VisionConfiguration();
-            configuration.Bind(key: "VisionConfiguration", instance: visionConfiguration);
-            keyCredential = new AzureKeyCredential(key: visionConfiguration.VisionKey);
+            //var visionConfiguration = new VisionConfiguration();
+            //configuration.Bind(key: "VisionConfiguration", instance: visionConfiguration);
+            keyCredential = new AzureKeyCredential(key: "6f14b39d7c3b48a8892dc796505e2d63");
 
             formRecognizerClient =
                 new FormRecognizerClient(
-                    endpoint: new Uri(visionConfiguration.VisionAddress),
+                    endpoint: new Uri("https://tarteeb-image-to-text.cognitiveservices.azure.com/"),
                     credential: keyCredential);
         }
 

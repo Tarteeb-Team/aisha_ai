@@ -84,7 +84,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 Stopwatch stopwatch = new Stopwatch();
                 stopwatch.Start();
 
-                await ModifyCheckerAsync(telegramUserMessage.TelegramUser);
+                //await ModifyCheckerAsync(telegramUserMessage.TelegramUser);
                 await this.imageMeatadataEventService.PublishImageMetadataEventAsync(imageMetadata);
 
                 stopwatch.Stop();
