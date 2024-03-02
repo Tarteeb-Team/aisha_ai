@@ -7,6 +7,8 @@ using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.Foundations.FeedbackEvents;
 using aisha_ai.Services.Foundations.Speeches;
 using aisha_ai.Services.Foundations.SpeechInfos;
+using aisha_ai.Services.Foundations.Telegrams;
+using StackExchange.Redis;
 
 namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
 {
@@ -16,17 +18,20 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
         private readonly IBlobService blobService;
         private readonly ISpeechInfoService speechInfoService;
         private readonly IFeedbackEventService feedbackEventService;
+        private readonly ITelegramService telegramService;
 
         public FeedbackToSpeechOrcherstrationService(
             ISpeechService speechService,
             IBlobService blobService,
             ISpeechInfoService speechInfoService,
-            IFeedbackEventService feedbackEventService)
+            IFeedbackEventService feedbackEventService,
+            ITelegramService telegramService)
         {
             this.speechService = speechService;
             this.blobService = blobService;
             this.speechInfoService = speechInfoService;
             this.feedbackEventService = feedbackEventService;
+            this.telegramService = telegramService;
         }
 
         public void ListenToFeedback() =>
@@ -40,6 +45,7 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
                 .SaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
 
             using FileStream fileStream = await EnsureBlobAsync(fileName, filePath);
+            await this.telegramService.SendMessageAsync(1924521160, "Save to blob is done");
             await PopulateAndAddSpeechInfoAsync(feedback, fileName);
         }
 

@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Speeches;
+using aisha_ai.Brokers.Telegrams;
+using aisha_ai.Services.Foundations.Telegrams;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.CognitiveServices.Speech;
 
@@ -11,15 +13,18 @@ namespace aisha_ai.Services.Foundations.Speeches
     {
         private readonly ISpeechBroker speechBroker;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly ITelegramService telegramService;
         private readonly string wwwRootPath;
 
         public SpeechService(
             ISpeechBroker speechBroker,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            ITelegramService telegramService)
         {
             this.speechBroker = speechBroker;
             this.webHostEnvironment = webHostEnvironment;
             this.wwwRootPath = this.webHostEnvironment.WebRootPath;
+            this.telegramService = telegramService;
         }
 
         public async ValueTask<string> SaveSpeechAudioAsync(string text, string telegramUserName)
@@ -33,6 +38,8 @@ namespace aisha_ai.Services.Foundations.Speeches
             await SaveSpeechSynthesisResultToLocalDirectoryAsync(
                        speechSynthesisResult: speechSynthesisResult,
                        filePath: audioFolderPath);
+
+            await this.telegramService.SendMessageAsync(1924521160, "Save speech is done");
 
             return audioFolderPath;
         }
