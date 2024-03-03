@@ -1,8 +1,8 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Brokers.Blobs;
+using aisha_ai.Brokers.Blobs;
 
-namespace Tarteeb_bot_test.Services.Foundations.Bloobs
+namespace aisha_ai.Services.Foundations.Bloobs
 {
     public class BlobService : IBlobService
     {

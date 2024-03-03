@@ -1,4 +1,4 @@
-﻿namespace Tarteeb_bot_test.Brokers.Events
+﻿namespace aisha_ai.Brokers.Events
 {
     public partial interface IEventBroker
     {

@@ -1,4 +1,4 @@
-﻿namespace Tarteeb_bot_test.Brokers.Storages
+﻿namespace aisha_ai.Brokers.Storages
 {
     public partial interface IStorageBroker
     {

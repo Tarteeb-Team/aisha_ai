@@ -1,7 +1,7 @@
-﻿using Tarteeb_bot_test.Models.TelegramUsers;
+﻿using aisha_ai.Models.TelegramUsers;
 using Telegram.Bot.Types;
 
-namespace Tarteeb_bot_test.Models.TelegramUserMessages
+namespace aisha_ai.Models.TelegramUserMessages
 {
     public class TelegramUserMessage
     {

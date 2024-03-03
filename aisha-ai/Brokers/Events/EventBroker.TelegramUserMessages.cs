@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using aisha_ai.Models.TelegramUserMessages;
 using LeVent.Clients;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
 
-namespace Tarteeb_bot_test.Brokers.Events
+namespace aisha_ai.Brokers.Events
 {
     public partial class EventBroker
     {

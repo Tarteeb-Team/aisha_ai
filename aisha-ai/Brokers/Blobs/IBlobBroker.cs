@@ -1,4 +1,4 @@
-﻿namespace Tarteeb_bot_test.Brokers.Blobs
+﻿namespace aisha_ai.Brokers.Blobs
 {
     public partial interface IBlobBroker
     { }

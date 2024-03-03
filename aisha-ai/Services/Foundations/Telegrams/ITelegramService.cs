@@ -1,12 +1,12 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System;
+using System.IO;
 using System.Threading;
-using System;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
+using System.Threading.Tasks;
+using aisha_ai.Models.TelegramUserMessages;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Tarteeb_bot_test.Services.Foundations.Telegrams
+namespace aisha_ai.Services.Foundations.Telegrams
 {
     public interface ITelegramService
     {

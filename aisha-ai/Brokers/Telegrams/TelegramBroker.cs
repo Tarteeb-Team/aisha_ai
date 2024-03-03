@@ -1,17 +1,16 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Threading;
-using System;
-using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Exceptions;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Telegram.Bot;
+using Telegram.Bot.Exceptions;
 using Telegram.Bot.Polling;
 using Telegram.Bot.Types;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Tarteeb_bot_test.Brokers.Telegrams
+namespace aisha_ai.Brokers.Telegrams
 {
     public class TelegramBroker : ITelegramBroker
     {

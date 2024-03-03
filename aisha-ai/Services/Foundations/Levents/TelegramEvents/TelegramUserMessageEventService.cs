@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Brokers.Events;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
+using aisha_ai.Brokers.Events;
+using aisha_ai.Models.TelegramUserMessages;
 
-namespace Tarteeb_bot_test.Services.Foundations.Levents.TelegramEvents
+namespace aisha_ai.Services.Foundations.Levents.TelegramEvents
 {
     public class TelegramUserMessageEventService : ITelegramUserMessageEventService
     {

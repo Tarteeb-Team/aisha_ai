@@ -1,12 +1,12 @@
 ﻿using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
-using Tarteeb_bot_test.Models.TelegramUsers;
-using Tarteeb_bot_test.Services.Foundations.Levents.TelegramEvents;
-using Tarteeb_bot_test.Services.Foundations.Redises;
-using Tarteeb_bot_test.Services.Foundations.Telegrams;
+using aisha_ai.Models.TelegramUserMessages;
+using aisha_ai.Models.TelegramUsers;
+using aisha_ai.Services.Foundations.Levents.TelegramEvents;
+using aisha_ai.Services.Foundations.Redises;
+using aisha_ai.Services.Foundations.Telegrams;
 using Telegram.Bot.Types.ReplyMarkups;
 
-namespace Tarteeb_bot_test.Services.Orchestrations.TelegramStates
+namespace aisha_ai.Services.Orchestrations.TelegramStates
 {
     public class TelegramStateOrchestrationService : ITelegramStateOrchestrationService
     {

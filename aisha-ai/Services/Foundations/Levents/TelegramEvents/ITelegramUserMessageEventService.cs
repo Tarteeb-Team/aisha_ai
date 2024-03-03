@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
+using aisha_ai.Models.TelegramUserMessages;
 
-namespace Tarteeb_bot_test.Services.Foundations.Levents.TelegramEvents
+namespace aisha_ai.Services.Foundations.Levents.TelegramEvents
 {
     public interface ITelegramUserMessageEventService
     {

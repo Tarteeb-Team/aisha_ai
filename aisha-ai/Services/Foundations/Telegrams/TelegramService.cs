@@ -1,15 +1,15 @@
-﻿using System.IO;
-using System.Threading.Tasks;
+﻿using System;
+using System.IO;
 using System.Threading;
-using System;
-using Tarteeb_bot_test.Brokers.Telegrams;
-using Tarteeb_bot_test.Models.TelegramUsers;
+using System.Threading.Tasks;
+using aisha_ai.Brokers.Telegrams;
+using aisha_ai.Models.TelegramUserMessages;
+using aisha_ai.Models.TelegramUsers;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
-using Telegram.Bot.Types;
 
-namespace Tarteeb_bot_test.Services.Foundations.Telegrams
+namespace aisha_ai.Services.Foundations.Telegrams
 {
     public class TelegramService : ITelegramService
     {

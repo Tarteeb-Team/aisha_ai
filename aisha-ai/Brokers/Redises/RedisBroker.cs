@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
+using aisha_ai.Models.TelegramUsers;
 using Microsoft.Extensions.Caching.Distributed;
-using StackExchange.Redis;
-using Tarteeb_bot_test.Models.TelegramUsers;
 
-namespace Tarteeb_bot_test.Brokers.Redises
+namespace aisha_ai.Brokers.Redises
 {
     public class RedisBroker : IRedisBroker
     {

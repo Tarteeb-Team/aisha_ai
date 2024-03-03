@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace Tarteeb_bot_test.Services.Foundations.Bloobs
+namespace aisha_ai.Services.Foundations.Bloobs
 {
     public interface IBlobService
     {

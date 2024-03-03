@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
-using Tarteeb_bot_test.Services.Foundations.Telegrams;
+using aisha_ai.Models.TelegramUserMessages;
+using aisha_ai.Services.Foundations.Telegrams;
 
-namespace Tarteeb_bot_test.Services.Orchestrations.Telegrams
+namespace aisha_ai.Services.Orchestrations.Telegrams
 {
     public class TelegramUserOrchestrationService : ITelegramUserOrchestrationService
     {

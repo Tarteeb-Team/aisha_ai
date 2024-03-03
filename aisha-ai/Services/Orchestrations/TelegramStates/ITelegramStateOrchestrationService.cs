@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
+using aisha_ai.Models.TelegramUserMessages;
 
-namespace Tarteeb_bot_test.Services.Orchestrations.TelegramStates
+namespace aisha_ai.Services.Orchestrations.TelegramStates
 {
     public interface ITelegramStateOrchestrationService
     {

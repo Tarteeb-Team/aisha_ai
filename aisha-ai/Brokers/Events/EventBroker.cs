@@ -1,7 +1,7 @@
-﻿using LeVent.Clients;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
+﻿using aisha_ai.Models.TelegramUserMessages;
+using LeVent.Clients;
 
-namespace Tarteeb_bot_test.Brokers.Events
+namespace aisha_ai.Brokers.Events
 {
     public partial class EventBroker : IEventBroker
     {

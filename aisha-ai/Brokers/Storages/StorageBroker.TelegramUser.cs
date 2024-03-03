@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUsers;
+using aisha_ai.Models.TelegramUsers;
+using Microsoft.EntityFrameworkCore;
 
-namespace Tarteeb_bot_test.Brokers.Storages
+namespace aisha_ai.Brokers.Storages
 {
     public partial class StorageBroker
     {

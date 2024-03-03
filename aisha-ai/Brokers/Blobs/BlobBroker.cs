@@ -1,7 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 
-namespace Tarteeb_bot_test.Brokers.Blobs
+namespace aisha_ai.Brokers.Blobs
 {
     public partial class BlobBroker : IBlobBroker
     {

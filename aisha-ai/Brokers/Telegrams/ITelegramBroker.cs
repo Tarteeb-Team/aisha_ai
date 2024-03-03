@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Threading.Tasks;
 using System.Threading;
-using System;
+using System.Threading.Tasks;
+using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using Telegram.Bot.Types;
 
-namespace Tarteeb_bot_test.Brokers.Telegrams
+namespace aisha_ai.Brokers.Telegrams
 {
     public interface ITelegramBroker
     {

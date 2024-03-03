@@ -1,4 +1,4 @@
-﻿namespace Tarteeb_bot_test.Models.TelegramUsers
+﻿namespace aisha_ai.Models.TelegramUsers
 {
     public enum TelegramUserStatus
     {

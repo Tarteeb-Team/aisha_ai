@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUsers;
+using aisha_ai.Models.TelegramUsers;
 
-namespace Tarteeb_bot_test.Brokers.Storages
+namespace aisha_ai.Brokers.Storages
 {
     public partial interface IStorageBroker
     {

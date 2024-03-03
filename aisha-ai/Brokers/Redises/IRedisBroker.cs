@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUsers;
+﻿using System.Threading.Tasks;
+using aisha_ai.Models.TelegramUsers;
 
-namespace Tarteeb_bot_test.Brokers.Redises
+namespace aisha_ai.Brokers.Redises
 {
     public interface IRedisBroker
     {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-using Tarteeb_bot_test.Brokers.Redises;
-using Tarteeb_bot_test.Models.TelegramUsers;
+using aisha_ai.Brokers.Redises;
+using aisha_ai.Models.TelegramUsers;
 
-namespace Tarteeb_bot_test.Services.Foundations.Redises
+namespace aisha_ai.Services.Foundations.Redises
 {
     public class RedisService : IRedisService
     {
