@@ -3,8 +3,6 @@
     public enum TelegramUserStatus
     {
         Active,
-        Register,
-        Menu,
-        TestSpeech
+        Photo
     }
 }

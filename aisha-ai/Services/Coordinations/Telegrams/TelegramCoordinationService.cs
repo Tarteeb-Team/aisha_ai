@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Tarteeb_bot_test.Models.TelegramUserMessages;
-using Tarteeb_bot_test.Services.Orchestrations.Telegrams;
-using Tarteeb_bot_test.Services.Orchestrations.TelegramStates;
+using aisha_ai.Models.TelegramUserMessages;
+using aisha_ai.Services.Orchestrations.Telegrams;
+using aisha_ai.Services.Orchestrations.TelegramStates;
 
-namespace Tarteeb_bot_test.Services.Coordinations.Telegrams
+namespace aisha_ai.Services.Coordinations.Telegrams
 {
     public class TelegramCoordinationService : ITelegramCoordinationService
     {

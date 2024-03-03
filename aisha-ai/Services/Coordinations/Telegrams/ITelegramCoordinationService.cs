@@ -1,4 +1,4 @@
-﻿namespace Tarteeb_bot_test.Services.Coordinations.Telegrams
+﻿namespace aisha_ai.Services.Coordinations.Telegrams
 {
     public interface ITelegramCoordinationService
     {
