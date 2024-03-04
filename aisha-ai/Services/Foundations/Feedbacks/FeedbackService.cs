@@ -10,10 +10,8 @@ public class FeedbackService : IFeedbackService
 {
     private readonly IStorageBroker storageBroker;
 
-    public FeedbackService(IStorageBroker storageBroker)
-    {
+    public FeedbackService(IStorageBroker storageBroker) =>
         this.storageBroker = storageBroker;
-    }
 
     public async ValueTask<Feedback> AddFeedbackAsync(Feedback feedback) =>
        await this.storageBroker.InsertFeedbackAsync(feedback);
