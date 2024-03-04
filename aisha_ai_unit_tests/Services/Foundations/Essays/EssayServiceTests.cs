@@ -1,3 +1,4 @@
+using System.Linq;
 using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.Essays;
 using aisha_ai.Services.Foundations.Essays;
@@ -17,10 +18,16 @@ public partial class EssayServiceTests
         this.essayService = new EssayService(
             storageBroker: this.storageBrokerMock.Object);
     }
+
+    private static int GetRandomNumber() =>
+        new IntRange(min:2, max: 10).GetValue();
     
     private static Filler<Essay> CreateEssayFiller() =>
         new Filler<Essay>();
 
     private static Essay CreateRandomEssay() =>
         CreateEssayFiller().Create();
+
+    private static IQueryable<Essay> CreateRandomEssays() =>
+        CreateEssayFiller().Create(count: GetRandomNumber()).AsQueryable();
 }

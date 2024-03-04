@@ -9,7 +9,7 @@ public partial class StorageBroker
 {
     public DbSet<Essay> EssayAnalyses { get; set; }
 
-    public IQueryable<Essay> RetrieveAllEssays() =>
+    public IQueryable<Essay> SelectAllEssays() =>
         SelectAll<Essay>();
 
     public async ValueTask<Essay> InsertEssayAsync(Essay essay) =>
