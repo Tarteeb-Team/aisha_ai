@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.Chekers;
 using aisha_ai.Services.Foundations.Checkers;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
@@ -14,25 +13,18 @@ namespace aisha_ai.Controllers
     {
         private readonly ICheckerService checkerService;
 
-        public CheckerController(ICheckerService checkerService)
-        {
+        public CheckerController(ICheckerService checkerService) =>
             this.checkerService = checkerService;
-        }
 
         [HttpGet]
         public ActionResult<bool> GetChecker(string telegramUserName)
         {
             try
             {
-                Checker checker = this.checkerService.RetrieveAllCheckers()
-                .FirstOrDefault(e => e.TelegramUserName == telegramUserName);
+                var checker = this.checkerService.RetrieveAllCheckers()
+                    .FirstOrDefault(e => e.TelegramUserName == telegramUserName);
 
-                bool state = false;
-
-                if (checker.State is true)
-                    state = true;
-
-                return Ok(state);
+                return Ok(checker.State);
             }
             catch (Exception)
             {
@@ -45,7 +37,7 @@ namespace aisha_ai.Controllers
         {
             try
             {
-                Checker checker = this.checkerService.RetrieveAllCheckers()
+                var checker = this.checkerService.RetrieveAllCheckers()
                     .FirstOrDefault(e => e.TelegramUserName == telegramUserName);
 
                 checker.State = state;
@@ -57,7 +49,6 @@ namespace aisha_ai.Controllers
             {
                 return Ok(null);
             }
-
         }
     }
 }

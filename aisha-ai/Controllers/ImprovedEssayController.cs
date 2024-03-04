@@ -12,10 +12,8 @@ namespace aisha_ai.Controllers
     {
         private readonly IImprovedEssayService improvedEssayService;
 
-        public ImprovedEssayController(IImprovedEssayService improvedEssayService)
-        {
+        public ImprovedEssayController(IImprovedEssayService improvedEssayService) =>
             this.improvedEssayService = improvedEssayService;
-        }
 
         [HttpGet]
         public ActionResult<ImprovedEssay> GetImprovedEssay(string telegramUserName)

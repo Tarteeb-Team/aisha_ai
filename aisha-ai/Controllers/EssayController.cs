@@ -12,10 +12,8 @@ namespace aisha_ai.Controllers
     {
         private readonly IEssayService essayService;
 
-        public EssayController(IEssayService essayService)
-        {
+        public EssayController(IEssayService essayService) =>
             this.essayService = essayService;
-        }
 
         [HttpGet]
         public ActionResult<Essay> GetEssays(string telegramUserName)
