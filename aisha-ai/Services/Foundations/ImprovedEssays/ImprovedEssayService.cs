@@ -16,7 +16,7 @@ namespace aisha_ai.Services.Foundations.ImprovedEssays
         }
 
         public async ValueTask<ImprovedEssay> AddImprovedEssayAsync(ImprovedEssay improvedEssay) =>
-            throw new NotImplementedException();
+            await this.storageBroker.InsertImprovedEssayAsync(improvedEssay);
 
         public IQueryable<ImprovedEssay> RetrieveAllImprovedEssays() =>
             throw new NotImplementedException();
