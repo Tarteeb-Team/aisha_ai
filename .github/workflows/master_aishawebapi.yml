@@ -1,63 +1,61 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - aishawebapi
+name: .Net
 
 on:
-  pull_request:
+  push:
     branches:
-      - master
-  workflow_dispatch:
+    - main
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - closed
+    branches:
+    - main
+
+env:
+  IS_RELEASE_CANDIDATE: >-
+    ${{ (
+        github.event_name == 'pull_request' && 
+        startsWith(github.event.pull_request.title, 'RELEASES:') && 
+        contains(github.event.pull_request.labels.*.name, 'RELEASES')
+      )
+      ||
+      (
+        github.event_name == 'push' && 
+        startsWith(github.event.head_commit.message, 'RELEASES:') && 
+        startsWith(github.ref_name, 'RELEASE')
+      )
+    }}
 
 jobs:
   build:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
+      - name: Check out
+        uses: actions/checkout@v3
+      - name: Setup .Net
+        uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.x'
-          include-prerelease: true
-
+          dotnet-version: 8.0.101
       - name: Restore
         run: dotnet restore
-
       - name: Build
-        run: dotnet build --configuration Release
-
+        run: dotnet build --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v3
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
   deploy:
-    runs-on: windows-latest
-    needs: build
-    if: >
-      github.event_name == 'pull_request' &&
-      github.event.pull_request.title == 'RELEASES' &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
-
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: ${{ env.IS_RELEASE_CANDIDATE == 'true' }}
     steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: .net-app
-      
-      - name: Login to Azure
+      - name:  Login to Azure
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_04B3EDB6EEE14CA5BAE6C01E7E2D7956 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_5874A2640F03413EAA75E2113090578C }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_21288C2D6088433D9A2EA402503A9920 }}
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
