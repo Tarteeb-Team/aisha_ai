@@ -14,6 +14,7 @@ using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.Essays;
 using aisha_ai.Services.Foundations.FeedbackEvents;
+using aisha_ai.Services.Foundations.FeedbackFeedbackCheckers;
 using aisha_ai.Services.Foundations.Feedbacks;
 using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.ImprovedEssays;
@@ -109,6 +110,7 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<ISpeechService, SpeechService>();
     builder.Services.AddTransient<ISpeechInfoService, SpeechInfoService>();
     builder.Services.AddTransient<IFeedbackEventService, FeedbackEventService>();
+    builder.Services.AddTransient<IFeedbackCheckerService, FeedbackCheckerService>();
 }
 
 static void Orcherstrations(WebApplicationBuilder builder)
