@@ -57,7 +57,8 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs:
+      - publish
     if: >
       github.event_name == 'pull_request' &&
       github.event.pull_request.title == 'RELEASES' &&
