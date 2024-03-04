@@ -19,8 +19,8 @@ public class EssayService : IEssayService
     public IQueryable<Essay> RetrieveAllEssays() =>
         this.storageBroker.SelectAllEssays();
 
-    public ValueTask<Essay> ModifyEssayAsync(Essay essay) =>
-        throw new NotImplementedException();
+    public async ValueTask<Essay> ModifyEssayAsync(Essay essay) =>
+        await this.storageBroker.UpdateEssayAsync(essay);
     
     public ValueTask<Essay> RemoveEssayAsync(Essay essay) =>
         throw new NotImplementedException();
