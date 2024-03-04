@@ -12,10 +12,8 @@ namespace aisha_ai.Controllers
     {
         private readonly IFeedbackService feedbackService;
 
-        public FeedbackController(IFeedbackService feedbackService)
-        {
+        public FeedbackController(IFeedbackService feedbackService) =>
             this.feedbackService = feedbackService;
-        }
 
         [HttpGet]
         public ActionResult<Feedback> GetFeedback(string telegramUserName)

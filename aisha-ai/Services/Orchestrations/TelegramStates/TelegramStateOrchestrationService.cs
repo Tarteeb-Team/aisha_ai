@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.Chekers;
+using aisha_ai.Models.FeedbackCheckers;
 using aisha_ai.Models.ImageMetadatas;
 using aisha_ai.Models.TelegramUserMessages;
 using aisha_ai.Models.TelegramUsers;
 using aisha_ai.Services.Foundations.Checkers;
+using aisha_ai.Services.Foundations.FeedbackFeedbackCheckers;
 using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
@@ -23,17 +25,20 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
         private readonly ITelegramUserService telegramUserService;
         private readonly ICheckerService checkerService;
         private readonly IImageMeatadataEventService imageMeatadataEventService;
+        private readonly IFeedbackCheckerService feedbackCheckerService;
 
         public TelegramStateOrchestrationService(
             ITelegramService telegramService,
             ITelegramUserService telegramUserService,
             IImageMeatadataEventService imageMeatadataEventService,
-            ICheckerService checkerService)
+            ICheckerService checkerService,
+            IFeedbackCheckerService feedbackCheckerService)
         {
             this.telegramService = telegramService;
             this.telegramUserService = telegramUserService;
             this.imageMeatadataEventService = imageMeatadataEventService;
             this.checkerService = checkerService;
+            this.feedbackCheckerService = feedbackCheckerService;
         }
 
         public async ValueTask DispatchProcessAsync(TelegramUserMessage telegramUserMessage)
@@ -49,6 +54,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                     await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
 
                     await PopulateCheckerAndAddAsync(telegramUserMessage.TelegramUser);
+                    await PopulateFeedbackCheckerAndAddAsync(telegramUserMessage.TelegramUser);
 
                     await this.telegramService.SendMessageAsync(
                         userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
@@ -132,6 +138,28 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 };
 
                 await this.checkerService.AddCheckerAsync(checker);
+            }
+        }
+
+        private async ValueTask PopulateFeedbackCheckerAndAddAsync(TelegramUser telegramUser)
+        {
+            var maybeFeedbackChecker = this.feedbackCheckerService.RetrieveAllFeedbackCheckers()
+                .FirstOrDefault(c => c.TelegramUserName == telegramUser.TelegramUserName);
+
+            if (maybeFeedbackChecker is not null)
+            {
+                return;
+            }
+            else
+            {
+                var feedbackChecker = new FeedbackChecker
+                {
+                    Id = Guid.NewGuid(),
+                    State = false,
+                    TelegramUserName = telegramUser.TelegramUserName
+                };
+
+                await this.feedbackCheckerService.AddFeedbackCheckerAsync(feedbackChecker);
             }
         }
 

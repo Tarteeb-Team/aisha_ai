@@ -12,10 +12,8 @@ namespace aisha_ai.Controllers
     {
         private readonly ITelegramUserService telegramUserService;
 
-        public TelegramUserController(ITelegramUserService telegramUserService)
-        {
+        public TelegramUserController(ITelegramUserService telegramUserService) =>
             this.telegramUserService = telegramUserService;
-        }
 
         [HttpGet]
         public ActionResult<IQueryable<TelegramUser>> GetTelegramUsers()

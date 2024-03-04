@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.Essays;
 using aisha_ai.Models.Feedbacks;
-using aisha_ai.Services.Foundations.Checkers;
 using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.FeedbackEvents;
+using aisha_ai.Services.Foundations.FeedbackFeedbackCheckers;
 using aisha_ai.Services.Foundations.Feedbacks;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
@@ -18,7 +18,7 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
         private readonly IFeedbackService feedbackService;
         private readonly ITelegramService telegramService;
         private readonly ITelegramUserService telegramUserService;
-        private readonly ICheckerService checkerService;
+        private readonly IFeedbackCheckerService feedbackCheckerService;
         private readonly IFeedbackEventService feedbackEventService;
 
         public FeedbackOrchestrationService(
@@ -26,15 +26,15 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
             IFeedbackService feedbackService,
             ITelegramService telegramService,
             ITelegramUserService telegramUserService,
-            ICheckerService checkerService,
-            IFeedbackEventService feedbackEventService)
+            IFeedbackEventService feedbackEventService,
+            IFeedbackCheckerService feedbackCheckerService)
         {
             this.essayAnalyzerService = essayAnalyzerService;
             this.feedbackService = feedbackService;
             this.telegramService = telegramService;
             this.telegramUserService = telegramUserService;
-            this.checkerService = checkerService;
             this.feedbackEventService = feedbackEventService;
+            this.feedbackCheckerService = feedbackCheckerService;
         }
 
         public async ValueTask ProcessFeedbackAsync(Essay essay)
@@ -45,7 +45,7 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
             var telegramUser = this.telegramUserService
                 .RetrieveAllTelegramUsers().FirstOrDefault(t => t.TelegramUserName == essay.TelegramUserName);
 
-            await ModifyCheckerAsync(essay);
+            await ModifyFeedbackCheckerAsync(essay);
 
             await this.telegramService.SendMessageAsync(
                 userTelegramId: telegramUser.TelegramId,
@@ -70,15 +70,15 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
             }
         }
 
-        private async ValueTask ModifyCheckerAsync(Essay essay)
+        private async Task ModifyFeedbackCheckerAsync(Essay essay)
         {
-            var checker = this.checkerService.RetrieveAllCheckers()
-                .FirstOrDefault(c => c.TelegramUserName == essay.TelegramUserName);
+            var feedbackChecker = this.feedbackCheckerService.RetrieveAllFeedbackCheckers()
+                .FirstOrDefault(f => f.TelegramUserName == essay.TelegramUserName);
 
-            checker.State = true;
-
-            await this.checkerService.ModifyCheckerAsync(checker);
+            feedbackChecker.State = true;
+            await this.feedbackCheckerService.ModifyFeedbackCheckerAsync(feedbackChecker);
         }
+
 
         private Feedback PopulateFeedback(string content, Essay essay)
         {
