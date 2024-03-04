@@ -1,10 +1,7 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - aishawebapi
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
@@ -22,8 +19,14 @@ jobs:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build with dotnet
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
         run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
@@ -37,11 +40,10 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'RELEASES' &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
 
     steps:
       - name: Download artifact from build job
@@ -63,4 +65,3 @@ jobs:
           app-name: 'aishawebapi'
           slot-name: 'Production'
           package: .
-          
