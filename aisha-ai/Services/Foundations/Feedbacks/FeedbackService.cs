@@ -17,7 +17,7 @@ public class FeedbackService : IFeedbackService
        await this.storageBroker.InsertFeedbackAsync(feedback);
 
     public IQueryable<Feedback> RetrieveAllFeedbacks() =>
-       throw new NotImplementedException();
+       this.storageBroker.SelectAllFeedbacks();
 
     public ValueTask<Feedback> RemoveFeedbackAsync(Feedback feedback) =>
         throw new NotImplementedException();
