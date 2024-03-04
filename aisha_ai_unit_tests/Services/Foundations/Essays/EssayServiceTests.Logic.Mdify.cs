@@ -22,10 +22,10 @@ public partial class EssayServiceTests
         
         // when
         Essay actualEssay =
-            await this.essayService.ModifyEssayAsync(expectedEssay);
+            await this.essayService.ModifyEssayAsync(inputEssay);
         
         // then
-        actualEssay.Should().BeEquivalentTo(inputEssay);
+        actualEssay.Should().BeEquivalentTo(expectedEssay);
         
         this.storageBrokerMock.Verify(broker => 
             broker.UpdateEssayAsync(inputEssay), Times.Once);
