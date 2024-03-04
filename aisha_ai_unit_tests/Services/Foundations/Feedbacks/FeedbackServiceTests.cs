@@ -1,4 +1,5 @@
-﻿using aisha_ai.Brokers.Storages;
+﻿using System.Linq;
+using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.Feedbacks;
 using aisha_ai.Services.Foundations.Feedbacks;
 using Moq;
@@ -19,10 +20,16 @@ namespace aisha_ai_unit_tests.Services.Foundations.Feedbacks
                 storageBroker: this.storageBrokerMock.Object);
         }
 
-        private static Feedback CreateRandomFeedback() =>
-            CreateFeedbackFiller().Create();
+        private static int GetRandomNumber() =>
+            new IntRange(min: 2, max: 9).GetValue();
 
         private static Filler<Feedback> CreateFeedbackFiller() =>
             new Filler<Feedback>();
+
+        private static Feedback CreateRandomFeedback() =>
+            CreateFeedbackFiller().Create();
+
+        private static IQueryable<Feedback> CreateRandomFeedbacks() =>
+            CreateFeedbackFiller().Create(count: GetRandomNumber()).AsQueryable();
     }
 }
