@@ -9,4 +9,5 @@ public interface ITelegramUserService
     ValueTask<TelegramUser> AddTelegramUserAsync(TelegramUser telegramUser);
     ValueTask<TelegramUser> ModifyTelegramUserAsync(TelegramUser telegramUser);
     IQueryable<TelegramUser> RetrieveAllTelegramUsers();
+    ValueTask<TelegramUser> RemoveTelegramUserAsync(string telegramUserName);
 }
