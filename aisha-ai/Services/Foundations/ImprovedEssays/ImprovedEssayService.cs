@@ -19,7 +19,7 @@ namespace aisha_ai.Services.Foundations.ImprovedEssays
             await this.storageBroker.InsertImprovedEssayAsync(improvedEssay);
 
         public IQueryable<ImprovedEssay> RetrieveAllImprovedEssays() =>
-            throw new NotImplementedException();
+            this.storageBroker.RetrieveAllImprovedEssays();
 
         public async ValueTask<ImprovedEssay> ModifyEssayAsync(ImprovedEssay improvedEssay) =>
             throw new NotImplementedException();

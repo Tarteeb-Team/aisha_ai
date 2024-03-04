@@ -28,7 +28,7 @@ namespace aisha_ai_unit_tests.Services.Foundations.ImprovedEssays
             actualImprovedEssays.Should().BeEquivalentTo(externalImprovedEssays);
 
             this.storageBrokerMock.Verify(broker =>
-                broker.SelectAllFeedbacks(), Times.Once());
+                broker.RetrieveAllImprovedEssays(), Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
