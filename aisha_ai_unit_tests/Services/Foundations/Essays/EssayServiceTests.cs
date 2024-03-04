@@ -24,17 +24,3 @@ public partial class EssayServiceTests
     private static Essay CreateRandomEssay() =>
         CreateEssayFiller().Create();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
