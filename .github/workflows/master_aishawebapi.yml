@@ -4,7 +4,7 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aishawebapi
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
@@ -37,6 +37,10 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs: build
+    if: >
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.title == 'RELEASES' &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -63,4 +67,5 @@ jobs:
           app-name: 'aishawebapi'
           slot-name: 'Production'
           package: .
+
           
