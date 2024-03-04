@@ -1,11 +1,11 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aisha_ai", "aisha-ai\aisha_ai.csproj", "{405130BD-9FF9-4552-83C2-657A213C56AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aisha_ai.UnitTest", "aisha_ai.UnitTest\aisha_ai.UnitTest.csproj", "{75FC0882-C147-40D8-ACEB-FA14641B6074}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aisha_ai_unit_tests", "aisha_ai_unit_tests\aisha_ai_unit_tests.csproj", "{7450C252-0086-499D-B760-27A6F5D0C4C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{405130BD-9FF9-4552-83C2-657A213C56AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{405130BD-9FF9-4552-83C2-657A213C56AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{405130BD-9FF9-4552-83C2-657A213C56AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{75FC0882-C147-40D8-ACEB-FA14641B6074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{75FC0882-C147-40D8-ACEB-FA14641B6074}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{75FC0882-C147-40D8-ACEB-FA14641B6074}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{75FC0882-C147-40D8-ACEB-FA14641B6074}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
