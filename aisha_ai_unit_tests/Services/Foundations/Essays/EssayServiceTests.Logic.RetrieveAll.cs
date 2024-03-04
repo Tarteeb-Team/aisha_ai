@@ -19,7 +19,7 @@ public partial class EssayServiceTests
         IQueryable<Essay> expectedEssays = persistedEssays.DeepClone();
 
         this.storageBrokerMock.Setup(broker => 
-            broker.RetrieveAllEssays())
+            broker.SelectAllEssays())
                 .Returns(persistedEssays);
         
         // when
@@ -30,7 +30,7 @@ public partial class EssayServiceTests
         actualEssays.Should().BeEquivalentTo(expectedEssays);
         
         this.storageBrokerMock.Verify(broker =>
-            broker.RetrieveAllEssays(), Times.Once);
+            broker.SelectAllEssays(), Times.Once);
         
         this.storageBrokerMock.VerifyNoOtherCalls();
     }
