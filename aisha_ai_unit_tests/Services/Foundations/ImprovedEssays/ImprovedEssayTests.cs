@@ -1,4 +1,5 @@
-﻿using aisha_ai.Brokers.Storages;
+﻿using System.Linq;
+using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.ImprovedEssays;
 using aisha_ai.Services.Foundations.ImprovedEssays;
 using Moq;
@@ -19,10 +20,16 @@ namespace aisha_ai_unit_tests.Services.Foundations.ImprovedEssays
                 storageBroker: this.storageBrokerMock.Object);
         }
 
+        private static int GetRandomNumber() =>
+            new IntRange(min: 2, max: 9).GetValue();
+
         private static Filler<ImprovedEssay> CreateImprovedEssayFiller() =>
             new Filler<ImprovedEssay>();
 
         private static ImprovedEssay CreateRandomImprovedEssay() =>
             CreateImprovedEssayFiller().Create();
+
+        private IQueryable<ImprovedEssay> CreateRandomImprovedEssays() =>
+            CreateImprovedEssayFiller().Create(count: GetRandomNumber()).AsQueryable();
     }
 }
