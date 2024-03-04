@@ -21,13 +21,13 @@ namespace aisha_ai_unit_tests.Services.Foundations.Feedbacks
 
             // when
             Feedback actualFeedback = await this.feedbackService
-                .RemoveFeedbackAsync(randomFeedback);
+                .RemoveFeedbackAsync(expectedFeedback);
 
             //then
             actualFeedback.Should().BeEquivalentTo(expectedFeedback);
 
             this.storageBrokerMock.Verify(broker =>
-                broker.DeleteFeedbackAsync(randomFeedback), Times.Once);
+                broker.DeleteFeedbackAsync(expectedFeedback), Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
         }
