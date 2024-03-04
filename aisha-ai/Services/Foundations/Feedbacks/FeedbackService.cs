@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
@@ -9,20 +10,18 @@ public class FeedbackService : IFeedbackService
 {
     private readonly IStorageBroker storageBroker;
 
-    public FeedbackService(IStorageBroker storageBroker)
-    {
+    public FeedbackService(IStorageBroker storageBroker) =>
         this.storageBroker = storageBroker;
-    }
 
-    public ValueTask<Feedback> AddFeedbackAsync(Feedback feedback) =>
-       this.storageBroker.InsertFeedbackAsync(feedback);
+    public async ValueTask<Feedback> AddFeedbackAsync(Feedback feedback) =>
+       await this.storageBroker.InsertFeedbackAsync(feedback);
 
     public IQueryable<Feedback> RetrieveAllFeedbacks() =>
-        this.storageBroker.SelectAllFeedbacks();
+       throw new NotImplementedException();
 
     public ValueTask<Feedback> RemoveFeedbackAsync(Feedback feedback) =>
-        this.storageBroker.DeleteFeedbackAsync(feedback);
+        throw new NotImplementedException();
 
     public ValueTask<Feedback> ModifyFeedbackAsync(Feedback feedback) =>
-        this.storageBroker.UpdateFeedbackAsync(feedback);
+       throw new NotImplementedException();
 }
