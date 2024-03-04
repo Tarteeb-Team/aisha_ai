@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
@@ -9,20 +10,18 @@ public class EssayService : IEssayService
 {
     private readonly IStorageBroker storageBroker;
 
-    public EssayService(IStorageBroker storageBroker)
-    {
+    public EssayService(IStorageBroker storageBroker) =>
         this.storageBroker = storageBroker;
-    }
 
     public async ValueTask<Essay> AddEssayAsync(Essay essay) =>
-      await storageBroker.InsertEssayAsync(essay);
+        await this.storageBroker.InsertEssayAsync(essay);
 
-    public async ValueTask<Essay> RemoveEssayAsync(Essay essay) =>
-       await storageBroker.DeleteEssayAsync(essay);
+    public IQueryable<Essay> RetrieveAllEssays()=>
+        throw new NotImplementedException();
 
-    public async ValueTask<Essay> ModifyEssayAsync(Essay essay) =>
-       await storageBroker.UpdateEssayAsync(essay);
+    public ValueTask<Essay> RemoveEssayAsync(Essay essay)=>
+        throw new NotImplementedException();
 
-    public IQueryable<Essay> RetrieveAllEssays() =>
-      storageBroker.RetrieveAllEssays();
+    public ValueTask<Essay> ModifyEssayAsync(Essay essay)=>
+        throw new NotImplementedException();
 }
