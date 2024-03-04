@@ -13,8 +13,8 @@ public class EssayService : IEssayService
     public EssayService(IStorageBroker storageBroker) =>
         this.storageBroker = storageBroker;
 
-    public ValueTask<Essay> AddEssayAsync(Essay essay) =>
-        throw new NotImplementedException();
+    public async ValueTask<Essay> AddEssayAsync(Essay essay) =>
+        await this.storageBroker.InsertEssayAsync(essay);
 
     public IQueryable<Essay> RetrieveAllEssays()=>
         throw new NotImplementedException();
