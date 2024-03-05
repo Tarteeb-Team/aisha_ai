@@ -92,7 +92,6 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
                 await ModifyCheckerAsync(telegramUserMessage.TelegramUser);
                 await this.imageMeatadataEventService.PublishImageMetadataEventAsync(imageMetadata);
-
                 stopwatch.Stop();
 
                 await this.telegramService.SendMessageAsync(
