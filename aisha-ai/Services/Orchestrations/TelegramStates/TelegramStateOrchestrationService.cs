@@ -106,6 +106,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
             Message message,
             TelegramUser telegramUser)
         {
+
             var imageFile = await telegramService
                 .GetFileAsync(message.Photo[message.Photo.Length - 1].FileId);
 
