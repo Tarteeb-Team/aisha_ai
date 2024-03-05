@@ -12,6 +12,27 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v3
+    - name: Setup Dot Net Version
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.100
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+  build-to-azure:
+    runs-on: windows-latest
+    needs: 
+    - build 
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'RELEASES:') &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
 
     steps:
       - uses: actions/checkout@v4
@@ -36,12 +57,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs:  
-    - build
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
+    needs: build-to-azure
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
