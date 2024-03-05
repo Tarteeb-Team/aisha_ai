@@ -4,52 +4,30 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  pull_request:
-    types:
-    - opened
-    - synchronize
-    - reopened
-    - closed
+  push:
     branches:
-    - master
+      - master
+  workflow_dispatch:
+
 jobs:
   build:
     runs-on: windows-latest
-    steps:
-    - name: Check Out
-      uses: actions/checkout@v3
-    - name: Setup Dot Net Version
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 8.0.100
-    - name: Restore
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-
-  publish:
-    runs-on: windows-latest
-    needs: 
-    - build
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '8.0.100'
+          dotnet-version: '8.x'
           include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
-
+        
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
+        
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -61,7 +39,13 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: publish
+    needs:
+    - build
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'RELEASES:') &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
+      
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
