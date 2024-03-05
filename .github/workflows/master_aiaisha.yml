@@ -1,13 +1,18 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  push:
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - closed
     branches:
-      - master
+    - master
+    # Trigger deployment when the title and label are "RELEASES"
+    tags:
+      - RELEASES
   workflow_dispatch:
-  # Trigger deployment when the title and label are "RELEASES"
-  release:
-    types: [published]
 
 jobs:
   build:
@@ -35,8 +40,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    # Only run deployment job when triggered by the release event with specified title and label
-    if: github.event_name == 'release' && github.event.release.title == 'RELEASES' && contains(github.event.release.labels.*.name, 'RELEASES')
+    if: github.event_name == 'push' && contains(github.ref, 'RELEASES')
     runs-on: windows-latest
     needs: build
     environment:
