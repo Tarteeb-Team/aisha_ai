@@ -16,6 +16,7 @@ on:
 
 jobs:
   build:
+    if: github.event_name == 'push' && !contains(github.ref, 'RELEASES')
     runs-on: windows-latest
 
     steps:
