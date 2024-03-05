@@ -36,7 +36,12 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs:  
+    - build
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'RELEASES:') &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
