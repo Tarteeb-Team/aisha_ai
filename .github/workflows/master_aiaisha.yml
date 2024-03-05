@@ -30,7 +30,7 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  build-to-azure:
+  build-for-azure:
     runs-on: windows-latest
     needs: 
     - build 
