@@ -62,7 +62,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build-to-azure
+    needs: build-for-azure
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
