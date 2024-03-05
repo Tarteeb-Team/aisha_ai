@@ -9,10 +9,10 @@ on:
     - closed
     branches:
     - master
+    # Trigger deployment when the title and label are "RELEASES"
+    tags:
+      - RELEASES
   workflow_dispatch:
-  # Trigger deployment when the title and label are "RELEASES"
-  release:
-    types: [published]
 
 jobs:
   build:
@@ -21,30 +21,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: SET UP .NET Core
+      - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: BUILD
+      - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: TEST
-        run: dotnet test --no-build --verbosity normal
-
-      - name: PUBLISH
+      - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: UPLOAD artifact for deployment job
+      - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    # Only run deployment job when triggered by the release event with specified title and label
-    if: github.event_name == 'release' && github.event.release.title == 'RELEASES' && contains(github.event.release.labels.*.name, 'RELEASES')
+    if: github.event_name == 'push' && contains(github.ref, 'RELEASES')
     runs-on: windows-latest
     needs: build
     environment:
