@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "aisha_ai", "aisha-ai\aisha_
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aisha_ai_unit_tests", "aisha_ai_unit_tests\aisha_ai_unit_tests.csproj", "{7450C252-0086-499D-B760-27A6F5D0C4C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aisha_ai_build", "aisha_ai_build\aisha_ai_build.csproj", "{17661A36-B6C6-4ACA-91B3-6189F7466E0D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7450C252-0086-499D-B760-27A6F5D0C4C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17661A36-B6C6-4ACA-91B3-6189F7466E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17661A36-B6C6-4ACA-91B3-6189F7466E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17661A36-B6C6-4ACA-91B3-6189F7466E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17661A36-B6C6-4ACA-91B3-6189F7466E0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
