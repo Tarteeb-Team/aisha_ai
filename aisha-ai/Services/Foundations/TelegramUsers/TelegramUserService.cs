@@ -23,4 +23,12 @@ public class TelegramUserService : ITelegramUserService
 
     public IQueryable<TelegramUser> RetrieveAllTelegramUsers() =>
         this.storageBroker.SelectAllTelegramUsers();
+    
+    public async ValueTask<TelegramUser> RemoveTelegramUserAsync(string telegramUserName)
+    {
+        var maybeTelegramUser = this.storageBroker.SelectAllTelegramUsers()
+            .FirstOrDefault(t => t.TelegramUserName == telegramUserName); 
+
+        return await this.storageBroker.DeleteTelegramUserAsync(maybeTelegramUser);
+    }
 }

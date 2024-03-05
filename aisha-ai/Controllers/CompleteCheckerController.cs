@@ -20,7 +20,8 @@ namespace aisha_ai.Controllers
         [HttpPost]
         public async ValueTask<ActionResult> PostChekerAsync(string telegramUserName)
         {
-            await this.sendToTelegramMessageOrcherstrationService.SendToTelegramOverralMessageAsync(telegramUserName);
+            await this.sendToTelegramMessageOrcherstrationService
+                .SendToTelegramOverralMessageAsync(telegramUserName);
 
             return Ok();
         }

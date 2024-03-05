@@ -9,5 +9,6 @@ namespace aisha_ai.Brokers.Storages
         ValueTask<TelegramUser> InsertTelegramUserAsync(TelegramUser telegramUser);
         IQueryable<TelegramUser> SelectAllTelegramUsers();
         ValueTask<TelegramUser> UpdateTelegramUserAsync(TelegramUser telegramUser);
+        ValueTask<TelegramUser> DeleteTelegramUserAsync(TelegramUser telegramUser);
     }
 }
