@@ -1,9 +1,14 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  push:
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - closed
     branches:
-      - master
+    - master
   workflow_dispatch:
   # Trigger deployment when the title and label are "RELEASES"
   release:
@@ -16,19 +21,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up .NET Core
+      - name: SET UP .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '8.x'
           include-prerelease: true
 
-      - name: Build with dotnet
+      - name: BUILD
         run: dotnet build --configuration Release
 
-      - name: dotnet publish
+      - name: TEST
+        run: dotnet test --no-build --verbosity normal
+
+      - name: PUBLISH
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Upload artifact for deployment job
+      - name: UPLOAD artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
