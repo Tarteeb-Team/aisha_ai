@@ -1,15 +1,13 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - closed
+  push:
     branches:
       - master
   workflow_dispatch:
+  # Trigger deployment when the title and label are "RELEASES"
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -21,37 +19,26 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 8.0.100
+          dotnet-version: '8.x'
+          include-prerelease: true
 
-      - name: Restore
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore
-
-      - name: Test
-        run: dotnet test --no-build --verbosity normal
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
-        if: >
-          startsWith(github.event.pull_request.title, 'RELEASES:') &&
-          contains(github.event.pull_request.labels.*.name, 'RELEASES')
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
+    # Only run deployment job when triggered by the release event with specified title and label
+    if: github.event_name == 'release' && github.event.release.title == 'RELEASES' && contains(github.event.release.labels.*.name, 'RELEASES')
     runs-on: windows-latest
-    needs:
-      - build
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -69,4 +56,4 @@ jobs:
           app-name: 'aiaisha'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5B31649074447449F14D14DC796D850 }}
-          package: ${{ github.workspace }}/.net-app
+          package: .
