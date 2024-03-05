@@ -9,5 +9,5 @@ public interface IFeedbackService
     public ValueTask<Feedback> AddFeedbackAsync(Feedback feedback);
     public IQueryable<Feedback> RetrieveAllFeedbacks();
     public ValueTask<Feedback> RemoveFeedbackAsync(Feedback feedback);
-    ValueTask<Feedback> ModifyFeedbackAsync(Feedback feedback);
+    public ValueTask<Feedback> ModifyFeedbackAsync(Feedback feedback);
 }
