@@ -22,6 +22,6 @@ public class EssayService : IEssayService
     public async ValueTask<Essay> ModifyEssayAsync(Essay essay) =>
         await this.storageBroker.UpdateEssayAsync(essay);
     
-    public ValueTask<Essay> RemoveEssayAsync(Essay essay) =>
-        throw new NotImplementedException();
+    public async ValueTask<Essay> RemoveEssayAsync(Essay essay) =>
+        await this.storageBroker.DeleteEssayAsync(essay);
 }
