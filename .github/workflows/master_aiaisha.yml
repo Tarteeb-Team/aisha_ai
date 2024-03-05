@@ -3,12 +3,12 @@ name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 on:
   pull_request:
     types:
-    - opened
-    - synchronize
-    - reopened
-    - closed
+      - opened
+      - synchronize
+      - reopened
+      - closed
     branches:
-    - master
+      - master
   workflow_dispatch:
 
 jobs:
@@ -22,10 +22,13 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 8.0.100
+
       - name: Restore
         run: dotnet restore
+
       - name: Build
         run: dotnet build --no-restore
+
       - name: Test
         run: dotnet test --no-build --verbosity normal
 
@@ -33,6 +36,9 @@ jobs:
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
+        if: >
+          startsWith(github.event.pull_request.title, 'RELEASES:') &&
+          contains(github.event.pull_request.labels.*.name, 'RELEASES')
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
@@ -41,7 +47,7 @@ jobs:
   deploy:
     runs-on: windows-latest
     needs:
-    - build
+      - build
     if: >
       github.event_name == 'pull_request' &&
       startsWith(github.event.pull_request.title, 'RELEASES:') &&
