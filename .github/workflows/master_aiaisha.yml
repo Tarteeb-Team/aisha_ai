@@ -4,9 +4,14 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  push:
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - closed
     branches:
-      - master
+    - master
   workflow_dispatch:
 
 jobs:
