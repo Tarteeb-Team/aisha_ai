@@ -1,14 +1,12 @@
+# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# More GitHub Actions for Azure: https://github.com/Azure/actions
+
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  pull_request:
-    types:
-    - opened
-    - synchronize
-    - reopened
-    - closed
+  push:
     branches:
-    - master
+      - master
   workflow_dispatch:
 
 jobs:
@@ -37,7 +35,6 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    if: github.event_name == 'push' && contains(github.ref, 'RELEASES') && contains(github.event.pull_request.labels.*.name, 'RELEASES')
     runs-on: windows-latest
     needs: build
     environment:
