@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using aisha_ai.Models.TelegramUsers;
 using aisha_ai.Services.Foundations.TelegramUsers;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +24,21 @@ namespace aisha_ai.Controllers
                 this.telegramUserService.RetrieveAllTelegramUsers();
 
             return Ok(telegramUsers);
+        }
+
+        [HttpDelete]
+        public async ValueTask<ActionResult<bool>> DeleteTelegramUser(string telegramUserName)
+        {
+            try
+            {
+                await this.telegramUserService.RemoveTelegramUserAsync(telegramUserName);
+
+                return Ok(true);
+            }
+            catch (Exception)
+            {
+                return Ok(false);
+            }
         }
     }
 }
