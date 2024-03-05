@@ -17,5 +17,8 @@ namespace aisha_ai.Brokers.Storages
 
         public async ValueTask<TelegramUser> UpdateTelegramUserAsync(TelegramUser telegramUser) =>
             await UpdateAsync(telegramUser);
+        
+        public async ValueTask<TelegramUser> DeleteTelegramUserAsync(TelegramUser telegramUser) =>
+            await DeleteAsync(telegramUser);
     }
 }
