@@ -3,6 +3,6 @@
     public enum TelegramUserStatus
     {
         Active,
-        Photo
+        UploadEssay
     }
 }

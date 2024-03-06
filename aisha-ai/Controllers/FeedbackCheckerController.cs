@@ -28,7 +28,7 @@ namespace aisha_ai.Controllers
             }
             catch (System.Exception)
             {
-                return null;
+                return NotFound();
             }
         }
 

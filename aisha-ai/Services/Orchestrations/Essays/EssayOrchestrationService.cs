@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using aisha_ai.Models.EssayEvents;
 using aisha_ai.Models.Essays;
 using aisha_ai.Models.ImageMetadatas;
+using aisha_ai.Models.TelegramUsers;
 using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.Essays;
 using aisha_ai.Services.Foundations.ImageMetadataEvents;
@@ -59,7 +60,8 @@ namespace Aisha.Core.Services.Orchestrations.Essays
             var telegramUser = this.telegramUserService.RetrieveAllTelegramUsers()
                 .FirstOrDefault(t => t.TelegramUserName == imageMetadata.TelegramUser.TelegramUserName);
 
-            await this.telegramService.SendMessageAsync(telegramUser.TelegramId, "Photo to text is done");
+            await this.telegramService.SendMessageAsync(
+                1924521160, $"Photo to text is done\nUser: {telegramUser.TelegramUserName}");
 
             EssayEvent essayEvent = PopulateEssayEvent(actualEssay, imageMetadata); 
             this.essayEventService.PublishEssayEventAsync(essayEvent); // to improve essay
@@ -124,7 +126,8 @@ namespace Aisha.Core.Services.Orchestrations.Essays
             }
             catch (Exception ex)
             {
-                await this.telegramService.SendMessageAsync(1924521160, $"{ex.Message}");
+                await this.telegramService.SendMessageAsync(1924521160, $"{ex.Message}\nUser: {essay.TelegramUserName}");
+
                 throw;
             }
         }
