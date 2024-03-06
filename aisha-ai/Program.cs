@@ -33,13 +33,22 @@ using aisha_ai.Services.Orchestrations.TelegramStates;
 using aisha_ai.Services.Processings.TelegramUsers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 Brokers(builder);
 Foundantions(builder);
@@ -62,23 +71,17 @@ static void RegisterEventListeners(IApplicationBuilder app)
 
     app.ApplicationServices.GetRequiredService<IImprovedEssayOrchestratioinService>()
         .ListenEssayEvent();
-    
+
     app.ApplicationServices.GetRequiredService<IFeedbackToSpeechOrcherstrationService>()
         .ListenToFeedback();
 }
 
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+app.UseSwagger();
+app.UseSwaggerUI();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
+app.UseCors();
 app.MapControllers();
-
 app.Run();
 
 static void Brokers(WebApplicationBuilder builder)
