@@ -7,11 +7,11 @@ namespace aisha_ai.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CompleteCheckerController : RESTFulController
+    public class FinishController : RESTFulController
     {
         private readonly ISendToTelegramMessageOrcherstrationService sendToTelegramMessageOrcherstrationService;
 
-        public CompleteCheckerController(
+        public FinishController(
             ISendToTelegramMessageOrcherstrationService sendToTelegramMessageOrcherstrationService)
         {
             this.sendToTelegramMessageOrcherstrationService = sendToTelegramMessageOrcherstrationService;

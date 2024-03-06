@@ -48,40 +48,37 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
             if (telegramUserMessage.Message.Text is "/start")
             {
-                if (telegramUser != null)
-                {
-                    telegramUser.TelegramUserStatus = TelegramUserStatus.Active;
-                    await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
+                telegramUser.TelegramUserStatus = TelegramUserStatus.Active;
+                await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
 
-                    await PopulateCheckerAndAddAsync(telegramUserMessage.TelegramUser);
-                    await PopulateFeedbackCheckerAndAddAsync(telegramUserMessage.TelegramUser);
+                await PopulateCheckerAndAddAsync(telegramUserMessage.TelegramUser);
+                await PopulateFeedbackCheckerAndAddAsync(telegramUserMessage.TelegramUser);
 
-                    await this.telegramService.SendMessageAsync(
-                        userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
-                        replyMarkup: new ReplyKeyboardMarkup("Photo") { ResizeKeyboard = true },
-                        message: "HI, you are already registered.");
+                await this.telegramService.SendMessageAsync(
+                    userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
+                    replyMarkup: new ReplyKeyboardMarkup("Upload essay 📝") { ResizeKeyboard = true },
+                    message: "Welcome, it's me Aisha 🤵🏻‍♀️");
 
-                    return;
-                }
+                return;
             }
-            if (telegramUserMessage.Message.Text is "Photo"
+            if (telegramUserMessage.Message.Text is "Upload essay 📝"
                 && telegramUser?.TelegramUserStatus is TelegramUserStatus.Active)
             {
-                telegramUser.TelegramUserStatus = TelegramUserStatus.Photo;
+                telegramUser.TelegramUserStatus = TelegramUserStatus.UploadEssay;
                 await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
 
                 await this.telegramService.SendMessageAsync(
                     userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
-                    message: "Please, send essay.");
+                    message: "You can do it, just send me a high-quality photo of your essay 📝");
 
                 return;
             }
             if (telegramUserMessage.Message.Type is MessageType.Photo
-                && telegramUser?.TelegramUserStatus is TelegramUserStatus.Photo)
+                && telegramUser?.TelegramUserStatus is TelegramUserStatus.UploadEssay)
             {
                 await this.telegramService.SendMessageAsync(
                     userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
-                    message: "Accepted, nice.");
+                    message: "Nice 😄");
 
                 ImageMetadata imageMetadata = await PopulateImageMetadataAsync(
                     telegramUserMessage.Message,
@@ -95,9 +92,9 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 stopwatch.Stop();
 
                 await this.telegramService.SendMessageAsync(
-                   userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
+                   userTelegramId: 1924521160,
                    replyMarkup: new ReplyKeyboardMarkup("/start") { ResizeKeyboard = true },
-                   message: $"Time: {stopwatch.Elapsed}");
+                   message: $"Time: {stopwatch.Elapsed}\nUser: {telegramUser.TelegramUserName}");
             }
         }
 
@@ -133,10 +130,13 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 {
                     Id = Guid.NewGuid(),
                     State = false,
+                    TelegramUserId = telegramUser.Id,
                     TelegramUserName = telegramUser.TelegramUserName
                 };
 
                 await this.checkerService.AddCheckerAsync(checker);
+                telegramUser.CheckerId = checker.Id;
+                await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
             }
         }
 
@@ -146,19 +146,20 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 .FirstOrDefault(c => c.TelegramUserName == telegramUser.TelegramUserName);
 
             if (maybeFeedbackChecker is not null)
-            {
                 return;
-            }
             else
             {
                 var feedbackChecker = new FeedbackChecker
                 {
                     Id = Guid.NewGuid(),
                     State = false,
+                    TelegramUserId = telegramUser.Id,
                     TelegramUserName = telegramUser.TelegramUserName
                 };
 
                 await this.feedbackCheckerService.AddFeedbackCheckerAsync(feedbackChecker);
+                telegramUser.FeedbackCheckerId = feedbackChecker.Id;
+                await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
             }
         }
 

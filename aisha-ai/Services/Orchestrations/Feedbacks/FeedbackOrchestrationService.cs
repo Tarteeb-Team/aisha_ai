@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.Essays;
 using aisha_ai.Models.Feedbacks;
+using aisha_ai.Models.TelegramUsers;
 using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.FeedbackEvents;
 using aisha_ai.Services.Foundations.FeedbackFeedbackCheckers;
@@ -51,12 +52,12 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
 
                 await this.telegramService.SendMessageAsync(
                     userTelegramId: telegramUser.TelegramId,
-                    message: "Feedback is done");
+                    message: $"Feedback is done\nUser: {telegramUser.TelegramUserName}");
             }
             catch (Exception ex)
             {
-                await this.telegramService
-                    .SendMessageAsync(1924521160, $"Error at process feedback: {ex.Message}");
+                await this.telegramService.SendMessageAsync(
+                    1924521160, $"Error at process feedback: {ex.Message}\nUser: {essay.TelegramUserName}");
             }
         }
 

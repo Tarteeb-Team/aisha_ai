@@ -52,6 +52,11 @@ namespace aisha_ai.Brokers.Storages
             return @object;
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            AddTelegramUserConfigurations(modelBuilder);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = "Data source = aisha.db";

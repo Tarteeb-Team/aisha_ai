@@ -28,7 +28,7 @@ namespace aisha_ai.Controllers
             }
             catch (Exception)
             {
-                return Ok(null);
+                return NotFound();
             }
         }
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using aisha_ai.Models.Feedbacks;
 using aisha_ai.Models.SpeechInfos;
+using aisha_ai.Models.TelegramUsers;
 using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.Foundations.FeedbackEvents;
 using aisha_ai.Services.Foundations.Speeches;
@@ -47,13 +48,16 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
                     .SaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
 
                 using FileStream fileStream = await EnsureBlobAsync(fileName, filePath);
-                await this.telegramService.SendMessageAsync(1924521160, "Save to blob is done");
+
+                await this.telegramService.SendMessageAsync(
+                    1924521160, $"Save to blob is done\nUser: {feedback.TelegramUserName}");
+
                 await PopulateAndAddSpeechInfoAsync(feedback, fileName);
             }
             catch (Exception ex)
             {
-                await this.telegramService
-                    .SendMessageAsync(1924521160, $"Error at process speech: {ex.Message}");
+                await this.telegramService.SendMessageAsync(
+                    1924521160, $"Error at process speech: {ex.Message}\nUser: {feedback.TelegramUserName}");
             }
         }
 
