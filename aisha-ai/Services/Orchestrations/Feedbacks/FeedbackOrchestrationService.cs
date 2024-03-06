@@ -39,17 +39,25 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
 
         public async ValueTask ProcessFeedbackAsync(Essay essay)
         {
-            var feedback = await EnsureFeedbackAsync(essay);
-            await this.feedbackEventService.PublishFeedbackAsync(feedback);
+            try
+            {
+                var feedback = await EnsureFeedbackAsync(essay);
+                await this.feedbackEventService.PublishFeedbackAsync(feedback);
 
-            var telegramUser = this.telegramUserService
-                .RetrieveAllTelegramUsers().FirstOrDefault(t => t.TelegramUserName == essay.TelegramUserName);
+                var telegramUser = this.telegramUserService
+                    .RetrieveAllTelegramUsers().FirstOrDefault(t => t.TelegramUserName == essay.TelegramUserName);
 
-            await ModifyFeedbackCheckerAsync(essay);
+                await ModifyFeedbackCheckerAsync(essay);
 
-            await this.telegramService.SendMessageAsync(
-                userTelegramId: telegramUser.TelegramId,
-                message: "Feedback is done");
+                await this.telegramService.SendMessageAsync(
+                    userTelegramId: telegramUser.TelegramId,
+                    message: "Feedback is done");
+            }
+            catch (Exception ex)
+            {
+                await this.telegramService
+                    .SendMessageAsync(1924521160, $"Error at process feedback: {ex.Message}");
+            }
         }
 
         private async ValueTask<Feedback> EnsureFeedbackAsync(Essay essay)
