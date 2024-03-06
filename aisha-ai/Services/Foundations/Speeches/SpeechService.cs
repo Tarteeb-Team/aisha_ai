@@ -29,19 +29,29 @@ namespace aisha_ai.Services.Foundations.Speeches
 
         public async ValueTask<string> SaveSpeechAudioAsync(string text, string telegramUserName)
         {
-            text = text.Replace("\n", "").Replace("\t", "").Replace("*", "").Replace("\\\"", "").Replace("/", "");
-            string audioFolderPath = Path.Combine(this.wwwRootPath, $"{telegramUserName}.wav");
+            try
+            {
+                text = text.Replace("\n", "").Replace("\t", "").Replace("*", "").Replace("\\\"", "").Replace("/", "");
+                string audioFolderPath = Path.Combine(this.wwwRootPath, $"{telegramUserName}.wav");
 
-            SpeechSynthesisResult speechSynthesisResult =
-                await this.speechBroker.GetSpeechResultAsync(text);
+                SpeechSynthesisResult speechSynthesisResult =
+                    await this.speechBroker.GetSpeechResultAsync(text);
 
-            await SaveSpeechSynthesisResultToLocalDirectoryAsync(
-                       speechSynthesisResult: speechSynthesisResult,
-                       filePath: audioFolderPath);
+                await SaveSpeechSynthesisResultToLocalDirectoryAsync(
+                           speechSynthesisResult: speechSynthesisResult,
+                           filePath: audioFolderPath);
 
-            await this.telegramService.SendMessageAsync(1924521160, "Save speech is done");
+                await this.telegramService.SendMessageAsync(1924521160, "Save speech is done");
 
-            return audioFolderPath;
+                return audioFolderPath;
+            }
+            catch (Exception ex)
+            {
+                await this.telegramService
+                    .SendMessageAsync(1924521160, $"Error at save speech: {ex.Message}");
+
+                throw ex;
+            }
         }
 
 
