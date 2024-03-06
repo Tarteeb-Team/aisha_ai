@@ -4,15 +4,48 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aishaessay
 
 on:
-  push:
+  pull_request:
+    types:
+    - opened
+    - synchronize
+    - reopened
+    - closed
     branches:
-      - master
+    - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v3
+    - name: Setup Dot Net Version
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.100
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+  build-for-azure:
+    runs-on: windows-latest
+    needs: 
+    - build 
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'RELEASES:') &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
+  build-for-deploy:
+    runs-on: windows-latest
+    needs: 
+    - build 
+    if: >
+      github.event_name == 'pull_request' &&
+      startsWith(github.event.pull_request.title, 'RELEASES:') &&
+      contains(github.event.pull_request.labels.*.name, 'RELEASES')
     steps:
       - uses: actions/checkout@v4
 
@@ -36,7 +69,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: build-for-deploy
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
