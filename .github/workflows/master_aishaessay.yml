@@ -30,14 +30,6 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  build-for-azure:
-    runs-on: windows-latest
-    needs: 
-    - build 
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
   build-for-deploy:
     runs-on: windows-latest
     needs: 
