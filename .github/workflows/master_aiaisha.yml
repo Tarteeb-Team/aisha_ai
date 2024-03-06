@@ -4,40 +4,14 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aiaisha
 
 on:
-  pull_request:
-    types:
-    - opened
-    - synchronize
-    - reopened
-    - closed
+  push:
     branches:
-    - master
+      - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-    steps:
-    - name: Check Out
-      uses: actions/checkout@v3
-    - name: Setup Dot Net Version
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.100
-    - name: Restore
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-  build-for-azure:
-    runs-on: windows-latest
-    needs: 
-    - build 
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
 
     steps:
       - uses: actions/checkout@v4
@@ -62,16 +36,25 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build-for-azure
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_65A54416974B47F4A52C80B8DF5ED810 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E139098FAB8C45B2A501E1FC0313966E }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_8C55FB81E1364181B655CAEBFF90779B }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
@@ -79,5 +62,5 @@ jobs:
         with:
           app-name: 'aiaisha'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F5B31649074447449F14D14DC796D850 }}
           package: .
+          
