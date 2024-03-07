@@ -24,7 +24,7 @@ namespace aisha_ai.Services.Foundations.ImprovedEssays
         public async ValueTask<ImprovedEssay> ModifyEssayAsync(ImprovedEssay improvedEssay) =>
             throw new NotImplementedException();
 
-        public ValueTask<ImprovedEssay> RemoveImprovedEssayAsync(ImprovedEssay improvedEssay) =>
-            throw new NotImplementedException();
+        public async ValueTask<ImprovedEssay> RemoveImprovedEssayAsync(ImprovedEssay improvedEssay) =>
+            await this.storageBroker.DeleteImprovedEssayAsync(improvedEssay);
     }
 }
