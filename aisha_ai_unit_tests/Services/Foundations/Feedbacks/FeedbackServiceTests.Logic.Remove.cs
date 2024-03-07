@@ -23,7 +23,7 @@ namespace aisha_ai_unit_tests.Services.Foundations.Feedbacks
             Feedback actualFeedback = await this.feedbackService
                 .RemoveFeedbackAsync(expectedFeedback);
 
-            //then
+            // then
             actualFeedback.Should().BeEquivalentTo(expectedFeedback);
 
             this.storageBrokerMock.Verify(broker =>
