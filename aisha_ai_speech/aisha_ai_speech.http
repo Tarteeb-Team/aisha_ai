@@ -1,6 +1,0 @@
-@aisha_ai_speech_HostAddress = http://localhost:5259
-
-GET {{aisha_ai_speech_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
