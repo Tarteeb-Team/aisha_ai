@@ -36,7 +36,7 @@ namespace aisha_ai.Brokers.Telegrams
         {
             try
             {
-                await taskHandler(update);
+                Task.Run(async () => await taskHandler(update));
             }
             catch (Exception ex)
             {

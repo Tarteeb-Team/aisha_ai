@@ -1,5 +1,5 @@
 ﻿using System;
-using aisha_ai.Models.EssayModels.Chekers;
+using aisha_ai.Models.EssayModels.UploadPhotoChekers;
 using aisha_ai.Models.EssayModels.FeedbackCheckers;
 
 namespace aisha_ai.Models.EssayModels.TelegramUsers
@@ -14,7 +14,7 @@ namespace aisha_ai.Models.EssayModels.TelegramUsers
         public Guid CheckerId { get; set; }
         public Guid FeedbackCheckerId { get; set; }
 
-        public Checker Checker { get; set; }
+        public PhotoChecker Checker { get; set; }
         public FeedbackChecker FeedbackChecker { get; set; }
     }
 }

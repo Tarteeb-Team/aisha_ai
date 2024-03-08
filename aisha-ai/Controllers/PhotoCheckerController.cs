@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Services.Foundations.Checkers;
+using aisha_ai.Services.Foundations.PhotoCheckers;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
 
@@ -9,11 +9,11 @@ namespace aisha_ai.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CheckerController : RESTFulController
+    public class PhotoCheckerController : RESTFulController
     {
-        private readonly ICheckerService checkerService;
+        private readonly IPhotoCheckersService checkerService;
 
-        public CheckerController(ICheckerService checkerService) =>
+        public PhotoCheckerController(IPhotoCheckersService checkerService) =>
             this.checkerService = checkerService;
 
         [HttpGet]
@@ -21,7 +21,7 @@ namespace aisha_ai.Controllers
         {
             try
             {
-                var checker = this.checkerService.RetrieveAllCheckers()
+                var checker = this.checkerService.RetrieveAllPhotoCheckers()
                     .FirstOrDefault(e => e.TelegramUserName == telegramUserName);
 
                 return Ok(checker.State);
@@ -37,11 +37,11 @@ namespace aisha_ai.Controllers
         {
             try
             {
-                var checker = this.checkerService.RetrieveAllCheckers()
+                var checker = this.checkerService.RetrieveAllPhotoCheckers()
                     .FirstOrDefault(e => e.TelegramUserName == telegramUserName);
 
                 checker.State = state;
-                await this.checkerService.ModifyCheckerAsync(checker);
+                await this.checkerService.ModifyPhotoCheckerAsync(checker);
 
                 return Ok();
             }
