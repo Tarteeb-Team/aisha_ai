@@ -7,7 +7,7 @@ namespace aisha_ai.Brokers.Storages;
 
 public partial class StorageBroker
 {
-    public DbSet<SpeechInfo> SpeechesInfo { get; set; }
+    public DbSet<SpeechInfo> SpeechesInfos { get; set; }
 
     public async ValueTask<SpeechInfo> InsertSpeechInfoAsync(SpeechInfo speechInfo) =>
         await InsertAsync(speechInfo);

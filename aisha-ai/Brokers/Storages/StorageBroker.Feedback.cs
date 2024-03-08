@@ -7,7 +7,7 @@ namespace aisha_ai.Brokers.Storages;
 
 public partial class StorageBroker
 {
-    public DbSet<Feedback> Feedbacks { get; set; }
+    public DbSet<Feedback> Feedback { get; set; }
 
     public async ValueTask<Feedback> InsertFeedbackAsync(Feedback feedback) =>
         await InsertAsync(feedback);

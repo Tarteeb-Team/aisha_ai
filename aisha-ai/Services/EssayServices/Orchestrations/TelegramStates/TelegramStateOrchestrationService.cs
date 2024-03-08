@@ -3,14 +3,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.EssayModels.Chekers;
 using aisha_ai.Models.EssayModels.FeedbackCheckers;
 using aisha_ai.Models.EssayModels.ImageMetadatas;
 using aisha_ai.Models.EssayModels.TelegramUserMessages;
 using aisha_ai.Models.EssayModels.TelegramUsers;
+using aisha_ai.Models.EssayModels.UploadPhotoChekers;
 using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
-using aisha_ai.Services.Foundations.Checkers;
 using aisha_ai.Services.Foundations.ImageMetadataEvents;
+using aisha_ai.Services.Foundations.PhotoCheckers;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
 using Telegram.Bot.Types;
@@ -23,7 +23,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
     {
         private readonly ITelegramService telegramService;
         private readonly ITelegramUserService telegramUserService;
-        private readonly ICheckerService checkerService;
+        private readonly IPhotoCheckersService checkerService;
         private readonly IImageMeatadataEventService imageMeatadataEventService;
         private readonly IFeedbackCheckerService feedbackCheckerService;
 
@@ -31,7 +31,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
             ITelegramService telegramService,
             ITelegramUserService telegramUserService,
             IImageMeatadataEventService imageMeatadataEventService,
-            ICheckerService checkerService,
+            IPhotoCheckersService checkerService,
             IFeedbackCheckerService feedbackCheckerService)
         {
             this.telegramService = telegramService;
@@ -117,7 +117,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
         private async ValueTask PopulateCheckerAndAddAsync(TelegramUser telegramUser)
         {
-            var maybeChecker = this.checkerService.RetrieveAllCheckers()
+            var maybeChecker = this.checkerService.RetrieveAllPhotoCheckers()
                 .FirstOrDefault(c => c.TelegramUserName == telegramUser.TelegramUserName);
 
             if (maybeChecker is not null)
@@ -126,7 +126,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
             }
             else
             {
-                var checker = new Checker
+                var checker = new PhotoChecker
                 {
                     Id = Guid.NewGuid(),
                     State = false,
@@ -134,7 +134,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                     TelegramUserName = telegramUser.TelegramUserName
                 };
 
-                await this.checkerService.AddCheckerAsync(checker);
+                await this.checkerService.AddPhotoCheckerAsync(checker);
                 telegramUser.CheckerId = checker.Id;
                 await this.telegramUserService.ModifyTelegramUserAsync(telegramUser);
             }
@@ -165,11 +165,11 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
         private async ValueTask ModifyCheckerAsync(TelegramUser telegramUser)
         {
-            var checker = this.checkerService.RetrieveAllCheckers()
+            var checker = this.checkerService.RetrieveAllPhotoCheckers()
                 .FirstOrDefault(c => c.TelegramUserName == telegramUser.TelegramUserName);
 
             checker.State = true;
-            await this.checkerService.ModifyCheckerAsync(checker);
+            await this.checkerService.ModifyPhotoCheckerAsync(checker);
         }
     }
 }

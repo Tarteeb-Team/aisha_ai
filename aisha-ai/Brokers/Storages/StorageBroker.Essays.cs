@@ -7,7 +7,7 @@ namespace aisha_ai.Brokers.Storages;
 
 public partial class StorageBroker
 {
-    public DbSet<Essay> EssayAnalyses { get; set; }
+    public DbSet<Essay> Essays { get; set; }
 
     public IQueryable<Essay> SelectAllEssays() =>
         SelectAll<Essay>();

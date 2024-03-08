@@ -1,9 +1,9 @@
 ﻿using System;
 using aisha_ai.Models.EssayModels.TelegramUsers;
 
-namespace aisha_ai.Models.EssayModels.Chekers
+namespace aisha_ai.Models.EssayModels.UploadPhotoChekers
 {
-    public class Checker
+    public class PhotoChecker
     {
         public Guid Id { get; set; }
         public bool State { get; set; }

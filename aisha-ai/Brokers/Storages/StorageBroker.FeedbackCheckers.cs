@@ -7,7 +7,7 @@ namespace aisha_ai.Brokers.Storages
 {
     public partial class StorageBroker
     {
-        public DbSet<FeedbackChecker> FeedbackCheckerAnalyses { get; set; }
+        public DbSet<FeedbackChecker> FeedbackCheckers { get; set; }
 
         public IQueryable<FeedbackChecker> RetrieveAllFeedbackCheckers() =>
             SelectAll<FeedbackChecker>();

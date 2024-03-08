@@ -21,7 +21,6 @@ using aisha_ai.Services.EssayServices.Orchestrations.SendToTelegramMessages;
 using aisha_ai.Services.EssayServices.Orchestrations.Telegrams;
 using aisha_ai.Services.EssayServices.Processings.TelegramUsers;
 using aisha_ai.Services.Foundations.Bloobs;
-using aisha_ai.Services.Foundations.Checkers;
 using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.Essays;
@@ -30,6 +29,7 @@ using aisha_ai.Services.Foundations.Feedbacks;
 using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.ImprovedEssays;
 using aisha_ai.Services.Foundations.ImproveEssays;
+using aisha_ai.Services.Foundations.PhotoCheckers;
 using aisha_ai.Services.Foundations.Speeches;
 using aisha_ai.Services.Foundations.SpeechInfos;
 using aisha_ai.Services.Foundations.Telegrams;
@@ -50,42 +50,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(builder =>
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
-});
-
+Cors(builder);
 Brokers(builder);
 Foundantions(builder);
 Processings(builder);
 Orcherstrations(builder);
 Coordinatioins(builder);
 
-
 var app = builder.Build();
 
 RegisterEventListeners(app);
-
-static void RegisterEventListeners(IApplicationBuilder app)
-{
-    app.ApplicationServices.GetRequiredService<ITelegramCoordinationService>()
-        .ListenTelegramUserMessage();
-
-    app.ApplicationServices.GetRequiredService<IEssayCoordinatioinService>()
-        .ListenEssay();
-
-    app.ApplicationServices.GetRequiredService<IImprovedEssayOrchestratioinService>()
-        .ListenEssayEvent();
-
-    app.ApplicationServices.GetRequiredService<IFeedbackToSpeechOrcherstrationService>()
-        .ListenToFeedback();
-}
-
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseHttpsRedirection();
@@ -115,7 +89,7 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<IEssayEventService, EssayEventService>();
     builder.Services.AddTransient<IEssayService, EssayService>();
     builder.Services.AddTransient<IVisionService, VisionService>();
-    builder.Services.AddTransient<ICheckerService, CheckerService>();
+    builder.Services.AddTransient<IPhotoCheckersService, PhotoCheckersService>();
     builder.Services.AddTransient<IEssayAnalyzerService, EssayAnalyzerService>();
     builder.Services.AddTransient<IFeedbackService, FeedbackService>();
     builder.Services.AddTransient<IImprovedEssayService, ImprovedEssayService>();
@@ -146,4 +120,32 @@ static void Coordinatioins(WebApplicationBuilder builder)
 static void Processings(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<ITelegramUserProcessingService, TelegramUserProcessingService>();
+}
+
+static void Cors(WebApplicationBuilder builder)
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddDefaultPolicy(builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+    });
+}
+
+static void RegisterEventListeners(IApplicationBuilder app)
+{
+    app.ApplicationServices.GetRequiredService<ITelegramCoordinationService>()
+        .ListenTelegramUserMessage();
+
+    app.ApplicationServices.GetRequiredService<IEssayCoordinatioinService>()
+        .ListenEssay();
+
+    app.ApplicationServices.GetRequiredService<IImprovedEssayOrchestratioinService>()
+        .ListenEssayEvent();
+
+    app.ApplicationServices.GetRequiredService<IFeedbackToSpeechOrcherstrationService>()
+        .ListenToFeedback();
 }

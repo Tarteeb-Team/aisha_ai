@@ -1,5 +1,4 @@
-﻿using aisha_ai.Models.EssayModels.Chekers;
-using aisha_ai.Models.EssayModels.FeedbackCheckers;
+﻿using aisha_ai.Models.EssayModels.FeedbackCheckers;
 using aisha_ai.Models.EssayModels.TelegramUsers;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +11,7 @@ namespace aisha_ai.Brokers.Storages
             modelBuilder.Entity<TelegramUser>()
                 .HasOne(telegramUser => telegramUser.Checker)
                 .WithOne(checker => checker.TelegramUser)
-                .HasForeignKey<Checker>(checker => checker.TelegramUserId)
+                .HasForeignKey<FeedbackChecker>(checker => checker.TelegramUserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<TelegramUser>()
