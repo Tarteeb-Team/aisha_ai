@@ -7,7 +7,8 @@ namespace aisha_ai.Services.Foundations.ImprovedEssays
     public interface IImprovedEssayService
     {
         public ValueTask<ImprovedEssay> AddImprovedEssayAsync(ImprovedEssay improvedEssay);
-        IQueryable<ImprovedEssay> RetrieveAllImprovedEssays();
-        ValueTask<ImprovedEssay> ModifyEssayAsync(ImprovedEssay improvedEssay);
+        public IQueryable<ImprovedEssay> RetrieveAllImprovedEssays();
+        public ValueTask<ImprovedEssay> ModifyEssayAsync(ImprovedEssay improvedEssay);
+        public ValueTask<ImprovedEssay> RemoveImprovedEssayAsync(ImprovedEssay improvedEssay);
     }
 }
