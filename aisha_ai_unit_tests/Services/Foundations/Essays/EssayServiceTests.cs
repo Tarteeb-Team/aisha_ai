@@ -1,6 +1,6 @@
 using System.Linq;
 using aisha_ai.Brokers.Storages;
-using aisha_ai.Models.Essays;
+using aisha_ai.Models.EssayModels.Essays;
 using aisha_ai.Services.Foundations.Essays;
 using Moq;
 using Tynamix.ObjectFiller;
@@ -20,8 +20,8 @@ public partial class EssayServiceTests
     }
 
     private static int GetRandomNumber() =>
-        new IntRange(min:2, max: 10).GetValue();
-    
+        new IntRange(min: 2, max: 10).GetValue();
+
     private static Filler<Essay> CreateEssayFiller() =>
         new Filler<Essay>();
 

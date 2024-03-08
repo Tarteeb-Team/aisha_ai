@@ -1,6 +1,6 @@
-﻿using aisha_ai.Models.Feedbacks;
+﻿using System;
 using System.Threading.Tasks;
-using System;
+using aisha_ai.Models.EssayModels.Feedbacks;
 
 namespace aisha_ai.Brokers.Events
 {

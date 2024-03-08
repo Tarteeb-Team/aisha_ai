@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using aisha_ai.Models.Feedbacks;
+using aisha_ai.Models.EssayModels.Feedbacks;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;

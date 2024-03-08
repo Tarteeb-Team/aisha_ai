@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using aisha_ai.Models.ImageMetadatas;
+using aisha_ai.Models.EssayModels.ImageMetadatas;
 using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events

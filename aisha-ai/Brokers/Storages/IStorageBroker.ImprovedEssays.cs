@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.ImprovedEssays;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
 
 namespace aisha_ai.Brokers.Storages
 {

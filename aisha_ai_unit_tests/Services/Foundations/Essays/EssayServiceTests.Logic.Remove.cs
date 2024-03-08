@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using aisha_ai.Models.Essays;
+using aisha_ai.Models.EssayModels.Essays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
@@ -20,17 +20,17 @@ public partial class EssayServiceTests
         this.storageBrokerMock.Setup(broker =>
             broker.DeleteEssayAsync(inputEssay))
                 .ReturnsAsync(deletedEssay);
-        
+
         // when
         Essay actualEssay =
             await this.essayService.RemoveEssayAsync(inputEssay);
-        
+
         // then
         actualEssay.Should().BeEquivalentTo(expectedEssay);
-        
-        this.storageBrokerMock.Verify(broker => 
+
+        this.storageBrokerMock.Verify(broker =>
             broker.DeleteEssayAsync(inputEssay), Times.Once);
-        
+
         this.storageBrokerMock.VerifyNoOtherCalls();
     }
 }

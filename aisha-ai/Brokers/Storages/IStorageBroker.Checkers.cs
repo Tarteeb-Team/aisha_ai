@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.Chekers;
+using aisha_ai.Models.EssayModels.Chekers;
 
 namespace aisha_ai.Brokers.Storages
 {

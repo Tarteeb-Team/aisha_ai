@@ -1,6 +1,6 @@
-﻿using aisha_ai.Models.Chekers;
-using aisha_ai.Models.FeedbackCheckers;
-using aisha_ai.Models.TelegramUsers;
+﻿using aisha_ai.Models.EssayModels.Chekers;
+using aisha_ai.Models.EssayModels.FeedbackCheckers;
+using aisha_ai.Models.EssayModels.TelegramUsers;
 using Microsoft.EntityFrameworkCore;
 
 namespace aisha_ai.Brokers.Storages

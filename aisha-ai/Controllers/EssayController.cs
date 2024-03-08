@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using aisha_ai.Models.Essays;
+using aisha_ai.Models.EssayModels.Essays;
 using aisha_ai.Services.Foundations.Essays;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;

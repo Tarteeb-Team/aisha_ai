@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using aisha_ai.Models.ImprovedEssays;
-using aisha_ai.Services.Foundations.ImprovedEssays;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
+using aisha_ai.Services.EssayServices.Foundations.ImprovedEssays;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
 

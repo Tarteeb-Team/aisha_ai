@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.FeedbackCheckers;
-using aisha_ai.Services.Foundations.FeedbackFeedbackCheckers;
+using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
 

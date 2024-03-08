@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.TelegramUsers;
+using aisha_ai.Models.EssayModels.TelegramUsers;
 using aisha_ai.Services.Foundations.TelegramUsers;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;

@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using aisha_ai.Brokers.Storages;
-using aisha_ai.Models.ImprovedEssays;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
+using aisha_ai.Services.EssayServices.Foundations.ImprovedEssays;
 using aisha_ai.Services.Foundations.ImprovedEssays;
 using Moq;
 using Tynamix.ObjectFiller;

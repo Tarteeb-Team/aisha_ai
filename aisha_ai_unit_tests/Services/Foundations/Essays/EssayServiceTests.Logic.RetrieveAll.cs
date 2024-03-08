@@ -1,5 +1,5 @@
 using System.Linq;
-using aisha_ai.Models.Essays;
+using aisha_ai.Models.EssayModels.Essays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
@@ -17,20 +17,20 @@ public partial class EssayServiceTests
         IQueryable<Essay> persistedEssays = inputEssays;
         IQueryable<Essay> expectedEssays = persistedEssays.DeepClone();
 
-        this.storageBrokerMock.Setup(broker => 
+        this.storageBrokerMock.Setup(broker =>
             broker.SelectAllEssays())
                 .Returns(persistedEssays);
-        
+
         // when
-        IQueryable<Essay> actualEssays = 
+        IQueryable<Essay> actualEssays =
             this.essayService.RetrieveAllEssays();
-        
+
         // then
         actualEssays.Should().BeEquivalentTo(expectedEssays);
-        
+
         this.storageBrokerMock.Verify(broker =>
             broker.SelectAllEssays(), Times.Once);
-        
+
         this.storageBrokerMock.VerifyNoOtherCalls();
     }
 }

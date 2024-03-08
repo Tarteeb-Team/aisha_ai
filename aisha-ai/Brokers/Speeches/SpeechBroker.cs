@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using aisha_ai.Models.SpeechConfigurations;
+using aisha_ai.Models.EssayModels.SpeechConfigurations;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.Extensions.Configuration;
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.VisionConfigurations;
+using aisha_ai.Models.EssayModels.VisionConfigurations;
 using Azure;
 using Azure.AI.FormRecognizer;
 using Azure.AI.FormRecognizer.Models;

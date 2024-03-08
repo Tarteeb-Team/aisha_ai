@@ -1,8 +1,8 @@
-﻿using aisha_ai.Models.ImprovedEssays;
+﻿using System.Threading.Tasks;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
-using System.Threading.Tasks;
 
 namespace aisha_ai_unit_tests.Services.Foundations.ImprovedEssays
 {

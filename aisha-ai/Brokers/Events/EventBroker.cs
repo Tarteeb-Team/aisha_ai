@@ -1,6 +1,6 @@
-﻿using aisha_ai.Models.EssayEvents;
-using aisha_ai.Models.Feedbacks;
-using aisha_ai.Models.ImageMetadatas;
+﻿using aisha_ai.Models.EssayModels.EssayEvents;
+using aisha_ai.Models.EssayModels.Feedbacks;
+using aisha_ai.Models.EssayModels.ImageMetadatas;
 using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events

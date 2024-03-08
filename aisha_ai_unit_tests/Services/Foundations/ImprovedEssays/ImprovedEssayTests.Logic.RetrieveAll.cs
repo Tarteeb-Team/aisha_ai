@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using aisha_ai.Models.ImprovedEssays;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
