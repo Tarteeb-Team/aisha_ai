@@ -1,8 +1,6 @@
-﻿using aisha_ai.Models.ImageMetadatas;
+﻿using System;
 using System.Threading.Tasks;
-using System;
-using aisha_ai.Models.Essays;
-using aisha_ai.Models.EssayEvents;
+using aisha_ai.Models.EssayModels.EssayEvents;
 
 namespace aisha_ai.Brokers.Events
 {

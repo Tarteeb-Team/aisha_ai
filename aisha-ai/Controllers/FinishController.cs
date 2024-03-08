@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using aisha_ai.Services.Orchestrations.SendToTelegramMessages;
+using aisha_ai.Services.EssayServices.Orchestrations.SendToTelegramMessages;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;
 

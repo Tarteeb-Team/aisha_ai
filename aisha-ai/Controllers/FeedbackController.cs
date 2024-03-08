@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using aisha_ai.Models.Feedbacks;
+using aisha_ai.Models.EssayModels.Feedbacks;
 using aisha_ai.Services.Foundations.Feedbacks;
 using Microsoft.AspNetCore.Mvc;
 using RESTFulSense.Controllers;

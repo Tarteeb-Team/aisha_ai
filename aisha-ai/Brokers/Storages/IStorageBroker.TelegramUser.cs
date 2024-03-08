@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.TelegramUsers;
+using aisha_ai.Models.EssayModels.TelegramUsers;
 
 namespace aisha_ai.Brokers.Storages
 {

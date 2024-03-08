@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using aisha_ai.Models.ImprovedEssays;
+﻿using System.Threading.Tasks;
+using aisha_ai.Models.EssayModels.ImprovedEssays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
@@ -33,7 +29,7 @@ namespace aisha_ai_unit_tests.Services.Foundations.ImprovedEssays
             this.storageBrokerMock.Verify(broker =>
                 broker.DeleteImprovedEssayAsync(expectedImprovedEssay), Times.Once());
 
-            this.storageBrokerMock.VerifyNoOtherCalls();    
+            this.storageBrokerMock.VerifyNoOtherCalls();
         }
     }
 }

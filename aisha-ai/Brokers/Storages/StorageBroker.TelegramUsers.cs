@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.TelegramUsers;
+using aisha_ai.Models.EssayModels.TelegramUsers;
 using Microsoft.EntityFrameworkCore;
 
 namespace aisha_ai.Brokers.Storages
@@ -17,7 +17,7 @@ namespace aisha_ai.Brokers.Storages
 
         public async ValueTask<TelegramUser> UpdateTelegramUserAsync(TelegramUser telegramUser) =>
             await UpdateAsync(telegramUser);
-        
+
         public async ValueTask<TelegramUser> DeleteTelegramUserAsync(TelegramUser telegramUser) =>
             await DeleteAsync(telegramUser);
     }

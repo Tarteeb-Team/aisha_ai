@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using aisha_ai.Models.FeedbackCheckers;
+using aisha_ai.Models.EssayModels.FeedbackCheckers;
 
 namespace aisha_ai.Brokers.Storages
 {

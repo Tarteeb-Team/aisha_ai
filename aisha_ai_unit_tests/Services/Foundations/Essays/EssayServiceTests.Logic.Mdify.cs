@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using aisha_ai.Models.Essays;
+using aisha_ai.Models.EssayModels.Essays;
 using FluentAssertions;
 using Force.DeepCloner;
 using Moq;
@@ -19,17 +19,17 @@ public partial class EssayServiceTests
         this.storageBrokerMock.Setup(broker =>
             broker.UpdateEssayAsync(inputEssay))
                 .ReturnsAsync(expectedEssay);
-        
+
         // when
         Essay actualEssay =
             await this.essayService.ModifyEssayAsync(inputEssay);
-        
+
         // then
         actualEssay.Should().BeEquivalentTo(expectedEssay);
-        
-        this.storageBrokerMock.Verify(broker => 
+
+        this.storageBrokerMock.Verify(broker =>
             broker.UpdateEssayAsync(inputEssay), Times.Once);
-        
+
         this.storageBrokerMock.VerifyNoOtherCalls();
     }
 }

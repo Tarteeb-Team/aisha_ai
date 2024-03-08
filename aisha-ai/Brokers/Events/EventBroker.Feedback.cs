@@ -1,8 +1,7 @@
-﻿using aisha_ai.Models.EssayEvents;
-using LeVent.Clients;
+﻿using System;
 using System.Threading.Tasks;
-using System;
-using aisha_ai.Models.Feedbacks;
+using aisha_ai.Models.EssayModels.Feedbacks;
+using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events
 {
