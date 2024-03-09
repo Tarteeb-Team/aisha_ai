@@ -4,40 +4,14 @@
 name: Build and deploy ASP.Net Core app to Azure Web App - aishaapi
 
 on:
-  pull_request:
-    types:
-    - opened
-    - synchronize
-    - reopened
-    - closed
+  push:
     branches:
-    - master
+      - master
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
-    steps:
-    - name: Check Out
-      uses: actions/checkout@v3
-    - name: Setup Dot Net Version
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 8.0.100
-    - name: Restore
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-  build-for-deploy:
-    runs-on: windows-latest
-    needs: 
-    - build 
-    if: >
-      github.event_name == 'pull_request' &&
-      startsWith(github.event.pull_request.title, 'RELEASES:') &&
-      contains(github.event.pull_request.labels.*.name, 'RELEASES')
 
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +36,7 @@ jobs:
 
   deploy:
     runs-on: windows-latest
-    needs: build-for-deploy
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -79,5 +53,5 @@ jobs:
         with:
           app-name: 'aishaapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_BF7BD75EA5104FD08BDBE55DF051FA9D }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DAA77BDD7F574F429D690F26C9E40F15 }}
           package: .
