@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.EssayModels.ImprovedEssays;
@@ -23,7 +22,7 @@ namespace aisha_ai.Services.Foundations.ImprovedEssays
             this.storageBroker.RetrieveAllImprovedEssays();
 
         public async ValueTask<ImprovedEssay> ModifyEssayAsync(ImprovedEssay improvedEssay) =>
-            throw new NotImplementedException();
+            await this.storageBroker.UpdateImprovedEssayAsync(improvedEssay);
 
         public async ValueTask<ImprovedEssay> RemoveImprovedEssayAsync(ImprovedEssay improvedEssay) =>
             await this.storageBroker.DeleteImprovedEssayAsync(improvedEssay);

@@ -45,9 +45,7 @@ namespace aisha_ai.Services.Orchestrations.ImprovedEssays
                 .FirstOrDefault(i => i.TelegramUserName == essayEvent.TelegramUser.TelegramUserName);
 
             if (maybeImprovedEssay is not null)
-            {
                 await ModifyImprovedEssay(maybeImprovedEssay, content);
-            }
             else
             {
                 var createdImprovedEssay = PopulateImprovedEssay(content, essayEvent);
