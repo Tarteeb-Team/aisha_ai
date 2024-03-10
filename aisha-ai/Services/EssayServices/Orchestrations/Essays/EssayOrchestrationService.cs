@@ -61,7 +61,7 @@ namespace aisha_ai.Services.EssayServices.Orchestrations.Essays
                 .FirstOrDefault(t => t.TelegramUserName == imageMetadata.TelegramUser.TelegramUserName);
 
             await telegramService.SendMessageAsync(
-                1924521160, $"Photo to text is done\nUser: {telegramUser.TelegramUserName}");
+                telegramUser.TelegramId, $"Photo to text is done\nUser: {telegramUser.TelegramUserName}");
 
             EssayEvent essayEvent = PopulateEssayEvent(actualEssay, imageMetadata);
             essayEventService.PublishEssayEventAsync(essayEvent); // to improve essay
