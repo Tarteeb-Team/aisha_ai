@@ -1,11 +1,4 @@
-﻿//===============================================================================
-// Project: AISHA
-// Description: This project assists with checking essays and speeches using AI.
-// Copyright (c) 2024 AIWisards Team. All rights reserved.
-//===============================================================================
-
-using System;
-using System.Reflection.Metadata.Ecma335;
+﻿using System;
 
 namespace aisha_ai.Models.SpeechModels.SpeechFeedback
 {

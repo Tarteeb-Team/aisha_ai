@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.EssayModels.Essays;
 using aisha_ai.Models.EssayModels.Feedbacks;
+using aisha_ai.Services.EssayServices.Foundations.Events.FeedbackEvents;
 using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
 using aisha_ai.Services.Foundations.EssayAnalizers;
-using aisha_ai.Services.Foundations.FeedbackEvents;
 using aisha_ai.Services.Foundations.Feedbacks;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
@@ -50,7 +50,7 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
                 await ModifyFeedbackCheckerAsync(essay);
 
                 await this.telegramService.SendMessageAsync(
-                    userTelegramId: telegramUser.TelegramId,
+                    userTelegramId: 1924521160,
                     message: $"Feedback is done\nUser: {telegramUser.TelegramUserName}");
             }
             catch (Exception ex)

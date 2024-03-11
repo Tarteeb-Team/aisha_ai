@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.EssayModels.EssayEvents;
 using aisha_ai.Models.EssayModels.ImprovedEssays;
+using aisha_ai.Services.EssayServices.Foundations.Events.EssayEvents;
 using aisha_ai.Services.EssayServices.Foundations.ImprovedEssays;
 using aisha_ai.Services.EssayServices.Orchestrations.ImprovedEssays;
-using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.ImproveEssays;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
@@ -58,7 +58,7 @@ namespace aisha_ai.Services.Orchestrations.ImprovedEssays
                 .FirstOrDefault(t => t.TelegramUserName == essayEvent.TelegramUser.TelegramUserName);
 
             await this.telegramService.SendMessageAsync(
-                telegramUser.TelegramId, $"ImprovedEssay is done\nUser: {telegramUser.TelegramUserName}");
+                1924521160, $"ImprovedEssay is done\nUser: {telegramUser.TelegramUserName}");
         }
 
 
