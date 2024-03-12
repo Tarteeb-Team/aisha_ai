@@ -1,6 +1,7 @@
 ﻿using aisha_ai.Models.EssayModels.EssayEvents;
 using aisha_ai.Models.EssayModels.Feedbacks;
 using aisha_ai.Models.EssayModels.ImageMetadatas;
+using aisha_ai.Models.SpeechModels.SpeechFeedback;
 using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events
@@ -12,6 +13,7 @@ namespace aisha_ai.Brokers.Events
             this.ImageMetadataEvents = new LeVentClient<ImageMetadata>();
             this.EssayEvents = new LeVentClient<EssayEvent>();
             this.FeedbackEvents = new LeVentClient<Feedback>();
+            this.SpeechFeedbackEvents = new LeVentClient<SpeechFeedback>();
         }
     }
 }

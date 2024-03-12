@@ -7,6 +7,7 @@ namespace aisha_ai.Brokers.Blobs
     {
         Task UploadSpeechAsync(Stream memoryStream, string speechId);
         Task DeleteBlobAsync(string fileName);
+        Task<Stream> DownloadSpeechAsync(string fileName);
         Task<bool> CheckIfBlobExistsAsync(string fileName);
     }
 }

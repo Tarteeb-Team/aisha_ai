@@ -24,6 +24,18 @@ namespace aisha_ai.Brokers.Blobs
             await blob.DeleteIfExistsAsync();
         }
 
+        public async Task<Stream> DownloadSpeechAsync(string fileName)
+        {
+            BlobContainerClient container = CreateBlobServiceClient(speechContainerName);
+            BlobClient blob = container.GetBlobClient(fileName);
+            var response = await blob.DownloadAsync();
+            MemoryStream memoryStream = new MemoryStream();
+            await response.Value.Content.CopyToAsync(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            return memoryStream;
+        }
+
         public async Task<bool> CheckIfBlobExistsAsync(string fileName)
         {
             BlobContainerClient container = CreateBlobServiceClient(speechContainerName);

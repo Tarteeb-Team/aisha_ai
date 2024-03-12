@@ -5,10 +5,10 @@ using Aisha.Core.Services.Orchestrations.Essays;
 using aisha_ai.Models.EssayModels.EssayEvents;
 using aisha_ai.Models.EssayModels.Essays;
 using aisha_ai.Models.EssayModels.ImageMetadatas;
+using aisha_ai.Services.EssayServices.Foundations.Events.EssayEvents;
+using aisha_ai.Services.EssayServices.Foundations.Events.ImageMetadataEvents;
 using aisha_ai.Services.EssayServices.Orchestrations.ImprovedEssays;
-using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.Essays;
-using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
 using aisha_ai.Services.Foundations.Visions;
@@ -61,7 +61,7 @@ namespace aisha_ai.Services.EssayServices.Orchestrations.Essays
                 .FirstOrDefault(t => t.TelegramUserName == imageMetadata.TelegramUser.TelegramUserName);
 
             await telegramService.SendMessageAsync(
-                telegramUser.TelegramId, $"Photo to text is done\nUser: {telegramUser.TelegramUserName}");
+                1924521160, $"Photo to text is done\nUser: {telegramUser.TelegramUserName}");
 
             EssayEvent essayEvent = PopulateEssayEvent(actualEssay, imageMetadata);
             essayEventService.PublishEssayEventAsync(essayEvent); // to improve essay

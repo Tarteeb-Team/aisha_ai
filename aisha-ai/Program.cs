@@ -1,6 +1,7 @@
 using Aisha.Core.Services.Coordnations.Essays;
 using Aisha.Core.Services.Orchestrations.Essays;
 using aisha_ai.Brokers.Blobs;
+using aisha_ai.Brokers.Cognitives;
 using aisha_ai.Brokers.Events;
 using aisha_ai.Brokers.OpenAIs;
 using aisha_ai.Brokers.Speeches;
@@ -8,6 +9,9 @@ using aisha_ai.Brokers.Storages;
 using aisha_ai.Brokers.Telegrams;
 using aisha_ai.Brokers.Visions;
 using aisha_ai.Services.Coordinations.Telegrams;
+using aisha_ai.Services.EssayServices.Foundations.Events.EssayEvents;
+using aisha_ai.Services.EssayServices.Foundations.Events.FeedbackEvents;
+using aisha_ai.Services.EssayServices.Foundations.Events.ImageMetadataEvents;
 using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
 using aisha_ai.Services.EssayServices.Foundations.Feedbacks;
 using aisha_ai.Services.EssayServices.Foundations.ImprovedEssays;
@@ -22,11 +26,8 @@ using aisha_ai.Services.EssayServices.Orchestrations.Telegrams;
 using aisha_ai.Services.EssayServices.Processings.TelegramUsers;
 using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.Foundations.EssayAnalizers;
-using aisha_ai.Services.Foundations.EssayEvents;
 using aisha_ai.Services.Foundations.Essays;
-using aisha_ai.Services.Foundations.FeedbackEvents;
 using aisha_ai.Services.Foundations.Feedbacks;
-using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.ImprovedEssays;
 using aisha_ai.Services.Foundations.ImproveEssays;
 using aisha_ai.Services.Foundations.PhotoCheckers;
@@ -41,6 +42,9 @@ using aisha_ai.Services.Orchestrations.ImprovedEssays;
 using aisha_ai.Services.Orchestrations.SendToTelegramMessages;
 using aisha_ai.Services.Orchestrations.TelegramStates;
 using aisha_ai.Services.Processings.TelegramUsers;
+using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
+using aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments;
+using aisha_ai.Services.SpeechServices.Orcherstrations.Speeches;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -78,6 +82,7 @@ static void Brokers(WebApplicationBuilder builder)
     builder.Services.AddTransient<IOpenAIBroker, OpenAIBroker>();
     builder.Services.AddTransient<ISpeechBroker, SpeechBroker>();
     builder.Services.AddTransient<IVisionBroker, VisionBroker>();
+    builder.Services.AddTransient<IPronunciationAssessmentBroker, PronunciationAssessmentBroker>();
 }
 
 static void Foundantions(WebApplicationBuilder builder)
@@ -98,6 +103,8 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<ISpeechInfoService, SpeechInfoService>();
     builder.Services.AddTransient<IFeedbackEventService, FeedbackEventService>();
     builder.Services.AddTransient<IFeedbackCheckerService, FeedbackCheckerService>();
+    builder.Services.AddTransient<IPronunciationAssessmentService, PronunciationAssessmentService>();
+    builder.Services.AddTransient<ISpeechFeedbackEventService, SpeechFeedbackEventService>();
 }
 
 static void Orcherstrations(WebApplicationBuilder builder)
@@ -109,6 +116,7 @@ static void Orcherstrations(WebApplicationBuilder builder)
     builder.Services.AddTransient<IFeedbackOrchestrationService, FeedbackOrchestrationService>();
     builder.Services.AddTransient<IFeedbackToSpeechOrcherstrationService, FeedbackToSpeechOrcherstrationService>();
     builder.Services.AddTransient<ISendToTelegramMessageOrcherstrationService, SendToTelegramMessageOrcherstrationService>();
+    builder.Services.AddTransient<ISpeechOrcherstrationService, SpeechOrcherstrationService>();
 }
 
 static void Coordinatioins(WebApplicationBuilder builder)

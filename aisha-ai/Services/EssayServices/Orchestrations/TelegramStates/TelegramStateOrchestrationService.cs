@@ -8,8 +8,8 @@ using aisha_ai.Models.EssayModels.ImageMetadatas;
 using aisha_ai.Models.EssayModels.TelegramUserMessages;
 using aisha_ai.Models.EssayModels.TelegramUsers;
 using aisha_ai.Models.EssayModels.UploadPhotoChekers;
+using aisha_ai.Services.EssayServices.Foundations.Events.ImageMetadataEvents;
 using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
-using aisha_ai.Services.Foundations.ImageMetadataEvents;
 using aisha_ai.Services.Foundations.PhotoCheckers;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
@@ -93,7 +93,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
                 stopwatch.Stop();
 
                 await this.telegramService.SendMessageAsync(
-                   userTelegramId: telegramUser.TelegramId,  //1924521160,
+                   userTelegramId: 1924521160,
                    replyMarkup: new ReplyKeyboardMarkup("/start") { ResizeKeyboard = true },
                    message: $"Time: {stopwatch.Elapsed}\nUser: {telegramUser.TelegramUserName}");
             }
