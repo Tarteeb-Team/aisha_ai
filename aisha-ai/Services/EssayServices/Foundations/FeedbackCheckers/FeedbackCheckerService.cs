@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.EssayModels.FeedbackCheckers;
-using RESTFulSense.Models;
 
 namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
 {
@@ -23,7 +22,7 @@ namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
            await storageBroker.DeleteFeedbackCheckerAsync(feedbackChecker);
 
         public IQueryable<FeedbackChecker> RetrieveAllFeedbackCheckers() =>
-          storageBroker.RetrieveAllFeedbackCheckers();
+          throw new NotImplementedException();
 
         public async ValueTask<FeedbackChecker> ModifyFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
             await storageBroker.UpdateFeedbackCheckerAsync(feedbackChecker);
