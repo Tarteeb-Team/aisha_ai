@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+﻿using aisha_ai.Models.EssayModels.Feedbacks;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace aisha_ai.Brokers.Storages
 {

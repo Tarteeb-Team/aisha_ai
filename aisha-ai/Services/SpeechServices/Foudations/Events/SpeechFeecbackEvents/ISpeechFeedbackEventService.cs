@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 
 namespace aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents
 {

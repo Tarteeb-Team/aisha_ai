@@ -1,5 +1,5 @@
 ﻿using aisha_ai.Models.EssayModels.Feedbacks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using System.Linq;
 using System.Threading.Tasks;
 

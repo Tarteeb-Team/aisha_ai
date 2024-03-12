@@ -44,7 +44,10 @@ using aisha_ai.Services.Orchestrations.TelegramStates;
 using aisha_ai.Services.Processings.TelegramUsers;
 using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
 using aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments;
+using aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbackCheckers;
+using aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbacks;
 using aisha_ai.Services.SpeechServices.Orcherstrations.Speeches;
+using aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -105,6 +108,8 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<IFeedbackCheckerService, FeedbackCheckerService>();
     builder.Services.AddTransient<IPronunciationAssessmentService, PronunciationAssessmentService>();
     builder.Services.AddTransient<ISpeechFeedbackEventService, SpeechFeedbackEventService>();
+    builder.Services.AddTransient<ISpeechFeedbackService, SpeechFeedbackService>();
+    builder.Services.AddTransient<ISpeechFeedbackCheckerService, SpeechFeedbackCheckerService>();
 }
 
 static void Orcherstrations(WebApplicationBuilder builder)
@@ -117,6 +122,7 @@ static void Orcherstrations(WebApplicationBuilder builder)
     builder.Services.AddTransient<IFeedbackToSpeechOrcherstrationService, FeedbackToSpeechOrcherstrationService>();
     builder.Services.AddTransient<ISendToTelegramMessageOrcherstrationService, SendToTelegramMessageOrcherstrationService>();
     builder.Services.AddTransient<ISpeechOrcherstrationService, SpeechOrcherstrationService>();
+    builder.Services.AddTransient<ISpeechFeedbackOrcherstrationService, SpeechFeedbackOrcherstrationService>();
 }
 
 static void Coordinatioins(WebApplicationBuilder builder)

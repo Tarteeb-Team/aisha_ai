@@ -1,7 +1,7 @@
 ﻿using aisha_ai.Models.EssayModels.EssayEvents;
 using aisha_ai.Models.EssayModels.Feedbacks;
 using aisha_ai.Models.EssayModels.ImageMetadatas;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events

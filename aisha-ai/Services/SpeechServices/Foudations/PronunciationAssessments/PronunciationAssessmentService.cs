@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Cognitives;
-using aisha_ai.Models.SpeechModels.ResponseCognitives;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.PronunciationAssessments.ResponseCognitives;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using Newtonsoft.Json;
 
 namespace aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments
@@ -27,15 +27,16 @@ namespace aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments
             ResponseCognitive responseCognitive = new ResponseCognitive();
             responseCognitive = JsonConvert.DeserializeObject<ResponseCognitive>(speechFeedbackJsonResult);
 
+
             var speechFeedback = new SpeechFeedback
             {
                 Id = Guid.NewGuid(),
                 Transcription = responseCognitive.DisplayText,
-                AccurancyScore = responseCognitive.NBest[0].SpeechFeedback.AccurancyScore,
-                FluencyScore = responseCognitive.NBest[0].SpeechFeedback.FluencyScore,
-                ProsodyScore = responseCognitive.NBest[0].SpeechFeedback.ProsodyScore,
-                CompletenessScore = responseCognitive.NBest[0].SpeechFeedback.CompletenessScore,
-                PronunciationScore = responseCognitive.NBest[0].SpeechFeedback.PronunciationScore,
+                AccuracyScore = responseCognitive.NBest[0].PronunciationAssessment.AccuracyScore,
+                FluencyScore = responseCognitive.NBest[0].PronunciationAssessment.FluencyScore,
+                ProsodyScore = responseCognitive.NBest[0].PronunciationAssessment.ProsodyScore,
+                CompletenessScore = responseCognitive.NBest[0].PronunciationAssessment.CompletenessScore,
+                PronunciationScore = responseCognitive.NBest[0].PronunciationAssessment.PronScore,
                 TelegramUserName = telegramUserName
             };
 

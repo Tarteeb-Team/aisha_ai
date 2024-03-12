@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
 using aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments;
@@ -34,7 +34,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.Speeches
             string filePath = await SaveSpeechToLocalFolder(blobName, speechStream);
             string telegramUserName = TakeTelegramUserName(blobName);
 
-            SpeechFeedback speechFeedback = await this
+            Models.SpeechModels.SpeechesFeedback.SpeechFeedback speechFeedback = await this
                 .pronunciationAssessmentService.GetSpeechFeedbackAsync(filePath, telegramUserName);
 
             await this.speechFeedbackEventService.PublishSpeechFeedbackAsync(speechFeedback);
