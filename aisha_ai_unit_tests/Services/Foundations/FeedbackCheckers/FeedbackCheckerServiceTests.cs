@@ -22,7 +22,6 @@ namespace aisha_ai_unit_tests.Services.Foundations.FeedbackCheckers
             feedbackCheckerService = new FeedbackCheckerService(
                 storageBroker: storageBrokerMock.Object);
         }
-
         private static int GetRandomNUmber() =>
         new IntRange(min: 2, max: 9).GetValue();
 
@@ -31,6 +30,7 @@ namespace aisha_ai_unit_tests.Services.Foundations.FeedbackCheckers
 
         private static Filler<FeedbackChecker> CreateFeedbackCheckerFiller() =>
         new Filler<FeedbackChecker>();
+
         private IQueryable<FeedbackChecker> CreateRandomFeedbackCheckers()
         {
             return CreateFeedbackCheckerFiller()
