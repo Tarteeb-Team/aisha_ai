@@ -25,6 +25,6 @@ namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
           storageBroker.RetrieveAllFeedbackCheckers();
 
         public async ValueTask<FeedbackChecker> ModifyFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
-          throw new NotImplementedException();
+           await storageBroker.UpdateFeedbackCheckerAsync(feedbackChecker);
     }
 }
