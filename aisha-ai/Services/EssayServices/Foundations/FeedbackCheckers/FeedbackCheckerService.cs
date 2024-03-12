@@ -19,7 +19,7 @@ namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
           await storageBroker.InsertFeedbackCheckerAsync(feedbackChecker);
 
         public async ValueTask<FeedbackChecker> RemoveFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
-           await storageBroker.DeleteFeedbackCheckerAsync(feedbackChecker);
+           throw new NotImplementedException();
 
         public IQueryable<FeedbackChecker> RetrieveAllFeedbackCheckers() =>
           storageBroker.RetrieveAllFeedbackCheckers();
