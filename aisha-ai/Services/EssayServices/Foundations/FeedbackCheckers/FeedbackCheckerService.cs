@@ -17,7 +17,7 @@ namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
         }
 
         public async ValueTask<FeedbackChecker> AddFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
-          throw new NotImplementedException();
+          await storageBroker.InsertFeedbackCheckerAsync(feedbackChecker);
 
         public async ValueTask<FeedbackChecker> RemoveFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
            await storageBroker.DeleteFeedbackCheckerAsync(feedbackChecker);
