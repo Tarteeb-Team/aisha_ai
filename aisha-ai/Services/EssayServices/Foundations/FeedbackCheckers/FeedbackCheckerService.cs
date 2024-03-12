@@ -1,7 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.EssayModels.FeedbackCheckers;
+using RESTFulSense.Models;
 
 namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
 {
@@ -15,7 +17,7 @@ namespace aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers
         }
 
         public async ValueTask<FeedbackChecker> AddFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
-          await storageBroker.InsertFeedbackCheckerAsync(feedbackChecker);
+          throw new NotImplementedException();
 
         public async ValueTask<FeedbackChecker> RemoveFeedbackCheckerAsync(FeedbackChecker feedbackChecker) =>
            await storageBroker.DeleteFeedbackCheckerAsync(feedbackChecker);
