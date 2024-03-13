@@ -5,7 +5,7 @@ using aisha_ai.Models.SpeechModels.PronunciationAssessments.ResponseCognitives;
 using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using Newtonsoft.Json;
 
-namespace aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments
+namespace aisha_ai.Services.SpeechServices.Foundations.PronunciationAssessments
 {
     public class PronunciationAssessmentService : IPronunciationAssessmentService
     {

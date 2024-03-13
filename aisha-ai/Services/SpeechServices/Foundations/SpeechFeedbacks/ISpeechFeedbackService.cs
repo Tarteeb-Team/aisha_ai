@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 
-namespace aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbacks
+namespace aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks
 {
     public interface ISpeechFeedbackService
     {

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
 using aisha_ai.Models.SpeechModels.SpeechesFeedback;
-using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
-using aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbackCheckers;
-using aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbacks;
+using aisha_ai.Models.SpeechModels.SpeechFeedbackCheckers;
+using aisha_ai.Models.SpeechModels.Transcriptions;
+using aisha_ai.Services.SpeechServices.Foundations.Events.SpeechFeecbackEvents;
+using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbackCheckers;
+using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks;
 
 namespace aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks
 {
@@ -23,7 +25,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks
             this.speechFeedbackEventService = speechFeedbackEventService;
         }
 
-        public void ListenToSpeechFeedback(Func<SpeechFeedback, ValueTask> speechFeedbackHandler)
+        public void ListenToSpeechFeedback(Func<Transcription, ValueTask> speechFeedbackHandler)
         {
             this.speechFeedbackEventService.ListenToSpeechFeedback(async (speechFeedback) =>
             {
@@ -33,9 +35,36 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks
 
         private async Task ProcessSpeechFeedbackAsync(
             SpeechFeedback speechFeedback,
-            Func<SpeechFeedback, ValueTask> speechFeedbackHandler)
+            Func<Transcription, ValueTask> speechFeedbackHandler)
         {
-            // ... 
+            await this.speechFeedbackService.AddSpeechFeedbackAsync(speechFeedback);
+            await PopulateAndAddSpeechFeedbackCheckerAsync(speechFeedback);
+            var transcription = CreateTranscriptionFromSpeechFeedback(speechFeedback);
+
+            await speechFeedbackHandler(transcription);
+        }
+
+        private Transcription CreateTranscriptionFromSpeechFeedback(SpeechFeedback speechFeedback)
+        {
+            return new Transcription
+            {
+                Id = Guid.NewGuid(),
+                Content = speechFeedback.Transcription,
+                TelegramUserName = speechFeedback.TelegramUserName
+            };
+        }
+
+        private async Task PopulateAndAddSpeechFeedbackCheckerAsync(SpeechFeedback speechFeedback)
+        {
+            var speechfeedbackChecker = new SpeechFeedbackChecker
+            {
+                Id = Guid.NewGuid(),
+                State = true,
+                TelegramUserName = speechFeedback.TelegramUserName
+            };
+
+            await this.speechFeedbackCheckerService
+                .AddSpeechFeedbackCheckerAsync(speechfeedbackChecker);
         }
     }
 }

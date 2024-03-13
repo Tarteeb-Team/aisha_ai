@@ -6,22 +6,22 @@ using Standard.AI.OpenAI.Models.Services.Foundations.ChatCompletions;
 
 namespace aisha_ai.Services.EssayServices.Foundations.ImproveEssays
 {
-    public class ImproveEssayService : IImproveEssayService
+    public class OpenAIService : IOpenAIService
     {
         private readonly IOpenAIBroker openAiBroker;
 
-        public ImproveEssayService(IOpenAIBroker openAiBroker) =>
+        public OpenAIService(IOpenAIBroker openAiBroker) =>
             this.openAiBroker = openAiBroker;
 
-        public async ValueTask<string> ImproveEssayAsync(string essay)
+        public async ValueTask<string> AnalizeRequestAsync(string text, string message)
         {
-            ChatCompletion request = CreateRequest(essay);
+            ChatCompletion request = CreateRequest(text, message);
             ChatCompletion result = await openAiBroker.AnalyzeEssayAsync(request);
 
             return result.Response.Choices.FirstOrDefault().Message.Content;
         }
 
-        private static ChatCompletion CreateRequest(string essay)
+        private static ChatCompletion CreateRequest(string text, string message)
         {
             return new ChatCompletion
             {
@@ -33,13 +33,13 @@ namespace aisha_ai.Services.EssayServices.Foundations.ImproveEssays
                    {
                        new ChatCompletionMessage
                         {
-                            Content = "Improve my essay by 1-2 points according to ielts score.",
+                            Content = message,
 
                             Role = "system",
                         },
                         new ChatCompletionMessage
                         {
-                            Content = essay,
+                            Content = text,
                             Role = "user",
                         }
                    },

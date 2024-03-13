@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using aisha_ai.Brokers.Events;
 using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 
-namespace aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents
+namespace aisha_ai.Services.SpeechServices.Foundations.Events.SpeechFeecbackEvents
 {
     public class SpeechFeedbackEventService : ISpeechFeedbackEventService
     {

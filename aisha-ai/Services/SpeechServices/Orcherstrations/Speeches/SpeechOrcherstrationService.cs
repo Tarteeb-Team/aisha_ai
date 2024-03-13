@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using aisha_ai.Services.Foundations.Bloobs;
-using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
-using aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments;
+using aisha_ai.Services.SpeechServices.Foundations.Events.SpeechFeecbackEvents;
+using aisha_ai.Services.SpeechServices.Foundations.PronunciationAssessments;
 using Microsoft.AspNetCore.Hosting;
 
 namespace aisha_ai.Services.SpeechServices.Orcherstrations.Speeches

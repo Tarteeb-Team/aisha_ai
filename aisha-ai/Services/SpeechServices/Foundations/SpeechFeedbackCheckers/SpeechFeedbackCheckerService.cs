@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
 using aisha_ai.Models.SpeechModels.SpeechFeedbackCheckers;
 
-namespace aisha_ai.Services.SpeechServices.Foudations.SpeechFeedbackCheckers
+namespace aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbackCheckers
 {
     public class SpeechFeedbackCheckerService : ISpeechFeedbackCheckerService
     {
