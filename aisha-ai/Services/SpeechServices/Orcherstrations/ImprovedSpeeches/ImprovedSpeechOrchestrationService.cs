@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using aisha_ai.Models.SpeechModels.ImprovedSpeechCheckers;
 using aisha_ai.Models.SpeechModels.Transcriptions;
 using aisha_ai.Services.EssayServices.Foundations.Speeches;
 using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.Foundations.ImproveEssays;
 using aisha_ai.Services.Foundations.Telegrams;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeechFeedbackCheckers;
 
 namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
 {
@@ -14,17 +16,20 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
         private readonly ISpeechService speechService;
         private readonly IBlobService blobService;
         private readonly ITelegramService telegramService;
+        private readonly IImprovedSpeechCheckerService improvedSpeechChecker;
 
         public ImprovedSpeechOrchestrationService(
             IOpenAIService openAIService,
             ISpeechService speechService,
             IBlobService blobService,
-            ITelegramService telegramService)
+            ITelegramService telegramService,
+            IImprovedSpeechCheckerService improvedSpeechChecker)
         {
             this.openAIService = openAIService;
             this.speechService = speechService;
             this.blobService = blobService;
             this.telegramService = telegramService;
+            this.improvedSpeechChecker = improvedSpeechChecker;
         }
 
         public async ValueTask ProcessImproveSpeechAsync(Transcription transcription)
@@ -34,6 +39,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
             var fileName = $"{transcription.TelegramUserName}.IS";
             var filePath = await this.speechService.CreateAndSaveSpeechAudioAsync(content, fileName);
             await EnsureBlobAsync(fileName, filePath);
+            await PopulateAndAddSpeechFeedbackCheckerAsync(transcription);
         }
 
         private async Task EnsureBlobAsync(string fileName, string filePath)
@@ -57,6 +63,18 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
 
                 throw ex;
             }
+        }
+
+        private async Task PopulateAndAddSpeechFeedbackCheckerAsync(Transcription transcription)
+        {
+            var improvedSpeechChecker = new ImprovedSpeechChecker()
+            {
+                Id = Guid.NewGuid(),
+                State = true,
+                TelegramUserName = transcription.TelegramUserName,
+            };
+
+            await this.improvedSpeechChecker.AddImprovedSpeechCheckerAsync(improvedSpeechChecker);
         }
     }
 }
