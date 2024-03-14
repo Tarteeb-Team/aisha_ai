@@ -15,23 +15,23 @@ namespace aisha_ai.Services.Orchestrations.ImprovedEssays
     public class ImprovedEssayOrchestratioinService : IImprovedEssayOrchestratioinService
     {
         private readonly IEssayEventService essayEventService;
-        private readonly IImproveEssayService improveEssayService;
         private readonly IImprovedEssayService improvedEssayService;
         private readonly ITelegramService telegramService;
         private readonly ITelegramUserService telegramUserService;
+        private readonly IOpenAIService openAIService;
 
         public ImprovedEssayOrchestratioinService(
             IEssayEventService essayEventService,
-            IImproveEssayService improveEssayService,
             IImprovedEssayService improvedEssayService,
             ITelegramService telegramService,
-            ITelegramUserService telegramUserService)
+            ITelegramUserService telegramUserService,
+            IOpenAIService openAIService)
         {
             this.essayEventService = essayEventService;
-            this.improveEssayService = improveEssayService;
             this.improvedEssayService = improvedEssayService;
             this.telegramService = telegramService;
             this.telegramUserService = telegramUserService;
+            this.openAIService = openAIService;
         }
 
         public void ListenEssayEvent() =>
@@ -39,7 +39,10 @@ namespace aisha_ai.Services.Orchestrations.ImprovedEssays
 
         private async ValueTask ProcessEssayEventAsync(EssayEvent essayEvent)
         {
-            var content = await this.improveEssayService.ImproveEssayAsync(essayEvent.Essay.Content);
+            string messageForAI = "Improve my essay by 1-2 points according to ielts score.";
+
+            var content = await this.openAIService
+                .AnalizeRequestAsync(essayEvent.Essay.Content, messageForAI);
 
             var maybeImprovedEssay = this.improvedEssayService.RetrieveAllImprovedEssays()
                 .FirstOrDefault(i => i.TelegramUserName == essayEvent.TelegramUser.TelegramUserName);

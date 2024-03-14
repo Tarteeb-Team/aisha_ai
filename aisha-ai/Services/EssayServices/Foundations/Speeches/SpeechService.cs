@@ -27,12 +27,12 @@ namespace aisha_ai.Services.Foundations.Speeches
             this.telegramService = telegramService;
         }
 
-        public async ValueTask<string> SaveSpeechAudioAsync(string text, string telegramUserName)
+        public async ValueTask<string> CreateAndSaveSpeechAudioAsync(string text, string fileName)
         {
             try
             {
                 text = text.Replace("\n", "").Replace("\t", "").Replace("*", "").Replace("\\\"", "").Replace("/", "");
-                string audioFolderPath = Path.Combine(this.wwwRootPath, $"{telegramUserName}.wav");
+                string audioFolderPath = Path.Combine(this.wwwRootPath, $"{fileName}.wav");
 
                 SpeechSynthesisResult speechSynthesisResult =
                     await this.speechBroker.GetSpeechResultAsync(text);
@@ -41,7 +41,7 @@ namespace aisha_ai.Services.Foundations.Speeches
                            speechSynthesisResult: speechSynthesisResult,
                            filePath: audioFolderPath);
 
-                await this.telegramService.SendMessageAsync(1924521160, "Save speech is done");
+                await this.telegramService.SendMessageAsync(1924521160, "Save speech is done (speech)");
 
                 return audioFolderPath;
             }

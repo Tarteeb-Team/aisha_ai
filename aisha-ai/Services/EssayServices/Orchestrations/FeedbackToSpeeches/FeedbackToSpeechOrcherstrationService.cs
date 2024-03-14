@@ -44,7 +44,7 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
                 var fileName = $"{feedback.TelegramUserName}.wav";
 
                 string filePath = await this.speechService
-                    .SaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
+                    .CreateAndSaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
 
                 using FileStream fileStream = await EnsureBlobAsync(fileName, filePath);
 

@@ -5,8 +5,8 @@ using aisha_ai.Models.EssayModels.Essays;
 using aisha_ai.Models.EssayModels.Feedbacks;
 using aisha_ai.Services.EssayServices.Foundations.Events.FeedbackEvents;
 using aisha_ai.Services.EssayServices.Foundations.FeedbackCheckers;
-using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.Feedbacks;
+using aisha_ai.Services.Foundations.ImproveEssays;
 using aisha_ai.Services.Foundations.Telegrams;
 using aisha_ai.Services.Foundations.TelegramUsers;
 
@@ -14,27 +14,27 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
 {
     public class FeedbackOrchestrationService : IFeedbackOrchestrationService
     {
-        private readonly IEssayAnalyzerService essayAnalyzerService;
         private readonly IFeedbackService feedbackService;
         private readonly ITelegramService telegramService;
         private readonly ITelegramUserService telegramUserService;
         private readonly IFeedbackCheckerService feedbackCheckerService;
         private readonly IFeedbackEventService feedbackEventService;
+        private readonly IOpenAIService openAIService;
 
         public FeedbackOrchestrationService(
-            IEssayAnalyzerService essayAnalyzerService,
             IFeedbackService feedbackService,
             ITelegramService telegramService,
             ITelegramUserService telegramUserService,
             IFeedbackEventService feedbackEventService,
-            IFeedbackCheckerService feedbackCheckerService)
+            IFeedbackCheckerService feedbackCheckerService,
+            IOpenAIService openAIService)
         {
-            this.essayAnalyzerService = essayAnalyzerService;
             this.feedbackService = feedbackService;
             this.telegramService = telegramService;
             this.telegramUserService = telegramUserService;
             this.feedbackEventService = feedbackEventService;
             this.feedbackCheckerService = feedbackCheckerService;
+            this.openAIService = openAIService;
         }
 
         public async ValueTask ProcessFeedbackAsync(Essay essay)
@@ -62,7 +62,10 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
 
         private async ValueTask<Feedback> EnsureFeedbackAsync(Essay essay)
         {
-            var content = await this.essayAnalyzerService.AnalyzeEssayAsync(essay.Content);
+            var messageForAI = "You are IELTS Writing examiner. Give detailed IELTS feedback" +
+                                "based on marking criteria of IELTS and give me overall Band.";
+
+            var content = await this.openAIService.AnalizeRequestAsync(essay.Content, messageForAI);
 
             var maybeFeedback = this.feedbackService.RetrieveAllFeedbacks()
                 .FirstOrDefault(f => f.TelegramUserName == essay.TelegramUserName);

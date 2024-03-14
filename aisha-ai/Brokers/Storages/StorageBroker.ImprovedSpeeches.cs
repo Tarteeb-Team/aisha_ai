@@ -1,8 +1,7 @@
-﻿using aisha_ai.Models.EssayModels.Feedbacks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using aisha_ai.Models.SpeechModels.ImprovedSpeeches;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace aisha_ai.Brokers.Storages
 {
@@ -18,5 +17,8 @@ namespace aisha_ai.Brokers.Storages
 
         public async ValueTask<ImprovedSpeech> DeleteImprovedSpeechAsync(ImprovedSpeech improvedSpeech) =>
             await DeleteAsync(improvedSpeech);
+
+        public async ValueTask<ImprovedSpeech> UpdateImprovedSpeechAsync(ImprovedSpeech improvedSpeech) =>
+            await UpdateAsync(improvedSpeech);
     }
 }

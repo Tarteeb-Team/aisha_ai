@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 using LeVent.Clients;
 
 namespace aisha_ai.Brokers.Events

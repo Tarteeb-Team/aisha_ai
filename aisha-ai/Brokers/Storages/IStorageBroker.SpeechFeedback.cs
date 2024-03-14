@@ -1,7 +1,6 @@
-﻿using aisha_ai.Models.EssayModels.Feedbacks;
-using aisha_ai.Models.SpeechModels.SpeechFeedback;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using aisha_ai.Models.SpeechModels.SpeechesFeedback;
 
 namespace aisha_ai.Brokers.Storages
 {
@@ -10,5 +9,6 @@ namespace aisha_ai.Brokers.Storages
         ValueTask<SpeechFeedback> InsertSpeechFeedbackAsync(SpeechFeedback speechFeedback);
         IQueryable<SpeechFeedback> SelectAllSpeechFeedbacks();
         ValueTask<SpeechFeedback> DeleteSpeechFeedbackAsync(SpeechFeedback speechFeedback);
+        ValueTask<SpeechFeedback> UpdateSpeechFeedbackAsync(SpeechFeedback speechFeedback);
     }
 }

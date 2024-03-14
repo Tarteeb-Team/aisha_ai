@@ -9,5 +9,6 @@ namespace aisha_ai.Brokers.Storages
         ValueTask<ImprovedSpeech> InsertImprovedSpeechAsync(ImprovedSpeech improvedSpeech);
         IQueryable<ImprovedSpeech> SelectAllImprovedSpeeches();
         ValueTask<ImprovedSpeech> DeleteImprovedSpeechAsync(ImprovedSpeech improvedSpeech);
+        ValueTask<ImprovedSpeech> UpdateImprovedSpeechAsync(ImprovedSpeech improvedSpeech);
     }
 }

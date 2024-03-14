@@ -25,7 +25,6 @@ using aisha_ai.Services.EssayServices.Orchestrations.SendToTelegramMessages;
 using aisha_ai.Services.EssayServices.Orchestrations.Telegrams;
 using aisha_ai.Services.EssayServices.Processings.TelegramUsers;
 using aisha_ai.Services.Foundations.Bloobs;
-using aisha_ai.Services.Foundations.EssayAnalizers;
 using aisha_ai.Services.Foundations.Essays;
 using aisha_ai.Services.Foundations.Feedbacks;
 using aisha_ai.Services.Foundations.ImprovedEssays;
@@ -42,9 +41,18 @@ using aisha_ai.Services.Orchestrations.ImprovedEssays;
 using aisha_ai.Services.Orchestrations.SendToTelegramMessages;
 using aisha_ai.Services.Orchestrations.TelegramStates;
 using aisha_ai.Services.Processings.TelegramUsers;
-using aisha_ai.Services.SpeechServices.Foudations.Events.SpeechFeecbackEvents;
-using aisha_ai.Services.SpeechServices.Foudations.PronunciationAssessments;
+using aisha_ai.Services.SpeechServices.Coordinations.Speeches;
+using aisha_ai.Services.SpeechServices.Foundations.Events.SpeechFeecbackEvents;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeechCheckers;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeeches;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeechFeedbackCheckers;
+using aisha_ai.Services.SpeechServices.Foundations.PronunciationAssessments;
+using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbackCheckers;
+using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks;
+using aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches;
 using aisha_ai.Services.SpeechServices.Orcherstrations.Speeches;
+using aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks;
+using aisha_ai.Services.SpeechServices.SendToTelegramMessages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -95,16 +103,19 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<IEssayService, EssayService>();
     builder.Services.AddTransient<IVisionService, VisionService>();
     builder.Services.AddTransient<IPhotoCheckersService, PhotoCheckersService>();
-    builder.Services.AddTransient<IEssayAnalyzerService, EssayAnalyzerService>();
     builder.Services.AddTransient<IFeedbackService, FeedbackService>();
     builder.Services.AddTransient<IImprovedEssayService, ImprovedEssayService>();
-    builder.Services.AddTransient<IImproveEssayService, ImproveEssayService>();
+    builder.Services.AddTransient<IOpenAIService, OpenAIService>();
     builder.Services.AddTransient<ISpeechService, SpeechService>();
     builder.Services.AddTransient<ISpeechInfoService, SpeechInfoService>();
     builder.Services.AddTransient<IFeedbackEventService, FeedbackEventService>();
     builder.Services.AddTransient<IFeedbackCheckerService, FeedbackCheckerService>();
     builder.Services.AddTransient<IPronunciationAssessmentService, PronunciationAssessmentService>();
     builder.Services.AddTransient<ISpeechFeedbackEventService, SpeechFeedbackEventService>();
+    builder.Services.AddTransient<ISpeechFeedbackService, SpeechFeedbackService>();
+    builder.Services.AddTransient<ISpeechFeedbackCheckerService, SpeechFeedbackCheckerService>();
+    builder.Services.AddTransient<IImprovedSpeechCheckerService, ImprovedSpeechCheckerService>();
+    builder.Services.AddTransient<IImprovedSpeechService, ImprovedSpeechService>();
 }
 
 static void Orcherstrations(WebApplicationBuilder builder)
@@ -117,12 +128,16 @@ static void Orcherstrations(WebApplicationBuilder builder)
     builder.Services.AddTransient<IFeedbackToSpeechOrcherstrationService, FeedbackToSpeechOrcherstrationService>();
     builder.Services.AddTransient<ISendToTelegramMessageOrcherstrationService, SendToTelegramMessageOrcherstrationService>();
     builder.Services.AddTransient<ISpeechOrcherstrationService, SpeechOrcherstrationService>();
+    builder.Services.AddTransient<ISpeechFeedbackOrcherstrationService, SpeechFeedbackOrcherstrationService>();
+    builder.Services.AddTransient<IImprovedSpeechOrchestrationService, ImprovedSpeechOrchestrationService>();
+    builder.Services.AddTransient<ISendSpeechToTelegramMessageOrcherstrationService, SendSpeechToTelegramMessageOrcherstrationService>();
 }
 
 static void Coordinatioins(WebApplicationBuilder builder)
 {
     builder.Services.AddTransient<ITelegramCoordinationService, TelegramCoordinationService>();
     builder.Services.AddTransient<IEssayCoordinatioinService, EssayCoordinatioinService>();
+    builder.Services.AddTransient<ISpeechCoordinationService, SpeechCoordinationService>();
 }
 
 static void Processings(WebApplicationBuilder builder)
@@ -156,4 +171,7 @@ static void RegisterEventListeners(IApplicationBuilder app)
 
     app.ApplicationServices.GetRequiredService<IFeedbackToSpeechOrcherstrationService>()
         .ListenToFeedback();
+
+    app.ApplicationServices.GetRequiredService<ISpeechCoordinationService>()
+        .ListenToTranscription();
 }

@@ -4,6 +4,6 @@ namespace aisha_ai.Services.EssayServices.Orchestrations.SendToTelegramMessages
 {
     public interface ISendToTelegramMessageOrcherstrationService
     {
-        ValueTask SendToTelegramOverralMessageAsync(string telegramUserName);
+        ValueTask SendToTelegramEssayOverralMessageAsync(string telegramUserName);
     }
 }
