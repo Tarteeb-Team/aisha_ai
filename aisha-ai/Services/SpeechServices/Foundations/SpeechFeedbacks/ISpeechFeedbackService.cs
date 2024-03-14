@@ -9,5 +9,6 @@ namespace aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks
         public ValueTask<SpeechFeedback> AddSpeechFeedbackAsync(SpeechFeedback speechFeedback);
         public IQueryable<SpeechFeedback> RetrieveAllSpeechFeedbacks();
         public ValueTask<SpeechFeedback> RemoveSpeechFeedbackAsync(SpeechFeedback speechFeedback);
+        ValueTask<SpeechFeedback> ModifySpeechFeedbackAsync(SpeechFeedback speechFeedback);
     }
 }

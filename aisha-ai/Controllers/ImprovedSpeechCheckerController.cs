@@ -39,7 +39,8 @@ namespace aisha_ai.Controllers
 
             improvedSpeechChecker.State = state;
 
-            await this.improvedSpeechCheckerService.ModifyImprovedSpeechCheckerAsync(improvedSpeechChecker);
+            await this.improvedSpeechCheckerService
+                .ModifyImprovedSpeechCheckerAsync(improvedSpeechChecker);
 
             return Ok();
         }

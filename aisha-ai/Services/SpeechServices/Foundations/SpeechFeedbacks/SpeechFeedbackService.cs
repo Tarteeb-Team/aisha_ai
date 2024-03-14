@@ -20,5 +20,8 @@ namespace aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks
 
         public async ValueTask<SpeechFeedback> RemoveSpeechFeedbackAsync(SpeechFeedback speechFeedback) =>
             await storageBroker.DeleteSpeechFeedbackAsync(speechFeedback);
+
+        public async ValueTask<SpeechFeedback> ModifySpeechFeedbackAsync(SpeechFeedback speechFeedback) =>
+            await storageBroker.UpdateSpeechFeedbackAsync(speechFeedback);
     }
 }

@@ -7,21 +7,21 @@ namespace aisha_ai.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class FinishController : RESTFulController
+    public class FinishEssayController : RESTFulController
     {
         private readonly ISendToTelegramMessageOrcherstrationService sendToTelegramMessageOrcherstrationService;
 
-        public FinishController(
+        public FinishEssayController(
             ISendToTelegramMessageOrcherstrationService sendToTelegramMessageOrcherstrationService)
         {
             this.sendToTelegramMessageOrcherstrationService = sendToTelegramMessageOrcherstrationService;
         }
 
         [HttpPost]
-        public async ValueTask<ActionResult> PostChekerAsync(string telegramUserName)
+        public async ValueTask<ActionResult> SendEssayMessageAsync(string telegramUserName)
         {
             await this.sendToTelegramMessageOrcherstrationService
-                .SendToTelegramOverralMessageAsync(telegramUserName);
+                .SendToTelegramEssayOverralMessageAsync(telegramUserName);
 
             return Ok();
         }

@@ -43,12 +43,16 @@ using aisha_ai.Services.Orchestrations.TelegramStates;
 using aisha_ai.Services.Processings.TelegramUsers;
 using aisha_ai.Services.SpeechServices.Coordinations.Speeches;
 using aisha_ai.Services.SpeechServices.Foundations.Events.SpeechFeecbackEvents;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeechCheckers;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeeches;
+using aisha_ai.Services.SpeechServices.Foundations.ImprovedSpeechFeedbackCheckers;
 using aisha_ai.Services.SpeechServices.Foundations.PronunciationAssessments;
 using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbackCheckers;
 using aisha_ai.Services.SpeechServices.Foundations.SpeechFeedbacks;
 using aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches;
 using aisha_ai.Services.SpeechServices.Orcherstrations.Speeches;
 using aisha_ai.Services.SpeechServices.Orcherstrations.SpeechFeedbacks;
+using aisha_ai.Services.SpeechServices.SendToTelegramMessages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -110,6 +114,8 @@ static void Foundantions(WebApplicationBuilder builder)
     builder.Services.AddTransient<ISpeechFeedbackEventService, SpeechFeedbackEventService>();
     builder.Services.AddTransient<ISpeechFeedbackService, SpeechFeedbackService>();
     builder.Services.AddTransient<ISpeechFeedbackCheckerService, SpeechFeedbackCheckerService>();
+    builder.Services.AddTransient<IImprovedSpeechCheckerService, ImprovedSpeechCheckerService>();
+    builder.Services.AddTransient<IImprovedSpeechService, ImprovedSpeechService>();
 }
 
 static void Orcherstrations(WebApplicationBuilder builder)
@@ -124,6 +130,7 @@ static void Orcherstrations(WebApplicationBuilder builder)
     builder.Services.AddTransient<ISpeechOrcherstrationService, SpeechOrcherstrationService>();
     builder.Services.AddTransient<ISpeechFeedbackOrcherstrationService, SpeechFeedbackOrcherstrationService>();
     builder.Services.AddTransient<IImprovedSpeechOrchestrationService, ImprovedSpeechOrchestrationService>();
+    builder.Services.AddTransient<ISendSpeechToTelegramMessageOrcherstrationService, SendSpeechToTelegramMessageOrcherstrationService>();
 }
 
 static void Coordinatioins(WebApplicationBuilder builder)

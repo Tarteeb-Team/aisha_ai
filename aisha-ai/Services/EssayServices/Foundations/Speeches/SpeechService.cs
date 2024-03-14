@@ -41,7 +41,7 @@ namespace aisha_ai.Services.Foundations.Speeches
                            speechSynthesisResult: speechSynthesisResult,
                            filePath: audioFolderPath);
 
-                await this.telegramService.SendMessageAsync(1924521160, "Save speech is done");
+                await this.telegramService.SendMessageAsync(1924521160, "Save speech is done (speech)");
 
                 return audioFolderPath;
             }

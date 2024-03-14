@@ -33,7 +33,7 @@ namespace aisha_ai.Services.Orchestrations.SendToTelegramMessages
             this.improvedEssayService = improvedEssayService;
         }
 
-        public async ValueTask SendToTelegramOverralMessageAsync(string telegramUserName)
+        public async ValueTask SendToTelegramEssayOverralMessageAsync(string telegramUserName)
         {
             var telegramUser = this.telegramUserService
                 .RetrieveAllTelegramUsers().FirstOrDefault(t => t.TelegramUserName == telegramUserName);
