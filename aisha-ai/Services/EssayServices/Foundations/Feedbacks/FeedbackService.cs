@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Brokers.Storages;
@@ -24,5 +23,5 @@ public class FeedbackService : IFeedbackService
         await storageBroker.DeleteFeedbackAsync(feedback);
 
     public async ValueTask<Feedback> ModifyFeedbackAsync(Feedback feedback) =>
-       throw new NotImplementedException();
+       await storageBroker.UpdateFeedbackAsync(feedback);
 }
