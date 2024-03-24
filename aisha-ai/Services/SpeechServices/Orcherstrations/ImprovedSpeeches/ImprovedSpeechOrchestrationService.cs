@@ -49,7 +49,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
                 var content = await this.openAIService.AnalizeRequestAsync(transcription.Content, messageForAI);
                 var fileName = $"{transcription.TelegramUserName}.IS";
                 var filePath = await this.speechService.CreateAndSaveSpeechAudioAsync(content, fileName);
-                await EnsureBlobAsync($"{fileName}.wav", filePath);
+                await EnsureBlobAsync($"{fileName}.wav", filePath, transcription.TelegramUserName);
                 await EnsureImprovedSpeechAsync(transcription.TelegramUserName, content);
                 await ModifyImprovedSpeechCheckerAsync(transcription);
                 await NotifyAdminAsync(transcription);
@@ -66,7 +66,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
         private async Task NotifyAdminAsync(Transcription transcription)
         {
             var telegramUser = this.telegramUserService.RetrieveAllTelegramUsers()
-                            .FirstOrDefault(t => t.TelegramUserName == transcription.TelegramUserName);
+                .FirstOrDefault(t => t.TelegramUserName == transcription.TelegramUserName);
 
             await this.telegramService.SendMessageAsync(
                 userTelegramId: telegramUser.TelegramId,
@@ -96,7 +96,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
             }
         }
 
-        private async Task EnsureBlobAsync(string fileName, string filePath)
+        private async Task EnsureBlobAsync(string fileName, string filePath, string telegramUserName)
         {
             try
             {
@@ -108,8 +108,12 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.ImprovedSpeeches
 
                 await this.blobService.UploadSpeechAsync(fileStream, fileName);
 
-                await this.telegramService
-                    .SendMessageAsync(1924521160, $"Save to the blob is done (speech)");
+                var telegramUser = this.telegramUserService.RetrieveAllTelegramUsers()
+                    .FirstOrDefault(t => t.TelegramUserName == telegramUserName);
+
+                await this.telegramService.SendMessageAsync(
+                    userTelegramId: telegramUser.TelegramId,
+                    message: $"Speech:\nSave to the blob is done.");
             }
             catch (Exception ex)
             {

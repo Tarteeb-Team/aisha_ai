@@ -72,6 +72,8 @@ namespace aisha_ai.Services.Foundations.Speeches
 
                         await audioStream.SaveToWaveFileAsync(filePath);
                     }
+
+                    speechSynthesisResult.Dispose();
                 }
                 catch (Exception ex)
                 {

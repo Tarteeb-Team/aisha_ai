@@ -57,6 +57,7 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.Speeches
                 SpeechFeedback speechFeedback = await this
                     .pronunciationAssessmentService.GetSpeechFeedbackAsync(filePath, telegramUserName);
 
+                File.Delete(filePath);
                 await this.speechFeedbackEventService.PublishSpeechFeedbackAsync(speechFeedback);
             }
             catch (Exception ex)
@@ -79,10 +80,15 @@ namespace aisha_ai.Services.SpeechServices.Orcherstrations.Speeches
         {
             var wwwrootPath = webHostEnvironment.WebRootPath;
             var filePath = Path.Combine(wwwrootPath, blobName);
-            var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-            await speechStream.CopyToAsync(fileStream);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            {
+                await speechStream.CopyToAsync(fileStream);
+            }
+
             return filePath;
         }
+
 
         private async Task PopulateAndAddImprovedSpeechCheckerAsync(string telegramUserName)
         {

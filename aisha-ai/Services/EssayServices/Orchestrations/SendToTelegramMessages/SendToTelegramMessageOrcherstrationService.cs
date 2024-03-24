@@ -65,6 +65,8 @@ namespace aisha_ai.Services.Orchestrations.SendToTelegramMessages
                         await this.telegramService.SendMessageAsync(
                             userTelegramId: telegramUser.TelegramId,
                             message: $"Improved essay 📝\n\n{improvedEssay.Content}");
+
+                        fileStream.Dispose();
                     }
                 }
 

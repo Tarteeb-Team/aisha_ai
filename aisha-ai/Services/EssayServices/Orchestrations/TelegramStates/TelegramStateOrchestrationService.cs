@@ -69,6 +69,7 @@ namespace aisha_ai.Services.Orchestrations.TelegramStates
 
                 await this.telegramService.SendMessageAsync(
                     userTelegramId: telegramUserMessage.TelegramUser.TelegramId,
+                    replyMarkup: new ReplyKeyboardRemove(),
                     message: "You can do it, just send me a high-quality photo of your essay 📝");
 
                 return;
