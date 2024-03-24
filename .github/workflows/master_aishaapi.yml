@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'aishaapi'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0FF46B18862A46838C606B3C5CF0D03F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CD50F6BF16BF4348961AC7188C98F886 }}
           package: .
