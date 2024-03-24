@@ -61,7 +61,7 @@ namespace aisha_ai.Services.Orchestrations.ImprovedEssays
                 .FirstOrDefault(t => t.TelegramUserName == essayEvent.TelegramUser.TelegramUserName);
 
             await this.telegramService.SendMessageAsync(
-                1924521160, $"ImprovedEssay is done\nUser: {telegramUser.TelegramUserName}");
+                telegramUser.TelegramId, $"ImprovedEssay is done\nUser: {telegramUser.TelegramUserName}");
         }
 
 

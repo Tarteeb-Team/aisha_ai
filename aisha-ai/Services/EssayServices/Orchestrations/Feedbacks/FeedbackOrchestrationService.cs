@@ -50,7 +50,7 @@ namespace aisha_ai.Services.Orchestrations.Feedbacks
                 await ModifyFeedbackCheckerAsync(essay);
 
                 await this.telegramService.SendMessageAsync(
-                    userTelegramId: 1924521160,
+                    userTelegramId: telegramUser.TelegramId,
                     message: $"Feedback is done\nUser: {telegramUser.TelegramUserName}");
             }
             catch (Exception ex)

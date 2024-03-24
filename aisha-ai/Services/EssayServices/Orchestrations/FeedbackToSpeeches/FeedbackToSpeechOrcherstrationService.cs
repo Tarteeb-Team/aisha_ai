@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using aisha_ai.Models.EssayModels.Feedbacks;
 using aisha_ai.Models.EssayModels.SpeechInfos;
@@ -9,6 +10,7 @@ using aisha_ai.Services.EssayServices.Orchestrations.FeedbackToSpeeches;
 using aisha_ai.Services.Foundations.Bloobs;
 using aisha_ai.Services.Foundations.SpeechInfos;
 using aisha_ai.Services.Foundations.Telegrams;
+using aisha_ai.Services.Foundations.TelegramUsers;
 
 namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
 {
@@ -19,19 +21,22 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
         private readonly ISpeechInfoService speechInfoService;
         private readonly IFeedbackEventService feedbackEventService;
         private readonly ITelegramService telegramService;
+        private readonly ITelegramUserService telegramUserService;
 
         public FeedbackToSpeechOrcherstrationService(
             ISpeechService speechService,
             IBlobService blobService,
             ISpeechInfoService speechInfoService,
             IFeedbackEventService feedbackEventService,
-            ITelegramService telegramService)
+            ITelegramService telegramService,
+            ITelegramUserService telegramUserService)
         {
             this.speechService = speechService;
             this.blobService = blobService;
             this.speechInfoService = speechInfoService;
             this.feedbackEventService = feedbackEventService;
             this.telegramService = telegramService;
+            this.telegramUserService = telegramUserService;
         }
 
         public void ListenToFeedback() =>
@@ -43,13 +48,17 @@ namespace aisha_ai.Services.Orchestrations.FeedbackToSpeeches
             {
                 var fileName = $"{feedback.TelegramUserName}.wav";
 
+                var telegramUser = this.telegramUserService
+                    .RetrieveAllTelegramUsers().FirstOrDefault(
+                        t => t.TelegramUserName == feedback.TelegramUserName);
+
                 string filePath = await this.speechService
                     .CreateAndSaveSpeechAudioAsync(feedback.Content, feedback.TelegramUserName);
 
                 using FileStream fileStream = await EnsureBlobAsync(fileName, filePath);
 
                 await this.telegramService.SendMessageAsync(
-                    1924521160, $"Save to blob is done\nUser: {feedback.TelegramUserName}");
+                    telegramUser.TelegramId, $"Save to blob is done\nUser: {feedback.TelegramUserName}");
 
                 await PopulateAndAddSpeechInfoAsync(feedback, fileName);
             }

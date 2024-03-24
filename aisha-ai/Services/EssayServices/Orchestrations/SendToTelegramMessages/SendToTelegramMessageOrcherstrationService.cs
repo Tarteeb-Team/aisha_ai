@@ -67,6 +67,7 @@ namespace aisha_ai.Services.Orchestrations.SendToTelegramMessages
                             message: $"Improved essay 📝\n\n{improvedEssay.Content}");
                     }
                 }
+
                 System.IO.File.Delete(audioFilePath);
             }
         }
