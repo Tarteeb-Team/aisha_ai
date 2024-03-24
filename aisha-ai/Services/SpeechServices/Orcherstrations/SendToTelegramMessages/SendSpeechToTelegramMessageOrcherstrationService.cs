@@ -59,8 +59,6 @@ namespace aisha_ai.Services.SpeechServices.SendToTelegramMessages
                         await this.telegramService.SendMessageAsync(
                             userTelegramId: telegramUser.TelegramId,
                             message: $"Improved speech text 📌\n\n{improvedSpeech.Content}");
-
-                        fileStream.Dispose();
                     }
 
                     File.Delete(audioFilePath);
